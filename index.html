@@ -288,14 +288,14 @@ html.js .toast{opacity:0;transform:translateY(-16px) scale(.95)}
 .toast .tt u{text-decoration:none;color:var(--blue);font-weight:700}
 .kbar{position:absolute;left:50%;bottom:-30px;transform:translate(-50%,16px);width:min(88%,660px);background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 34px -14px rgba(15,42,67,.2);display:grid;grid-template-columns:repeat(4,1fr);padding:16px 8px}
 html.js .kbar{opacity:0}
-.stage.play .kbar{animation:kbar .85s cubic-bezier(.22,.8,.26,1) forwards 3s}
+.stage.play .kbar{animation:kbar .85s cubic-bezier(.22,.8,.26,1) forwards 1.75s}
 @keyframes kbar{to{opacity:1;transform:translate(-50%,0)}}
 .kbar>div{text-align:center;padding:0 10px;border-right:1px solid var(--line)}
 .kbar>div:last-child{border-right:none}
 .kbar .v{font-family:"Manrope",sans-serif;font-size:23px;font-weight:800;letter-spacing:-.5px}
 .kbar .hotv{color:#C43D1F}.kbar .bluv{color:var(--blue)}.kbar .grnv{color:var(--green)}
 .kbar .l{font-size:11px;color:#4E6885;font-weight:600;margin-top:2px}
-@media(max-width:760px){.kbar{grid-template-columns:repeat(2,1fr);row-gap:12px;position:static;transform:none;width:100%;margin-top:14px}.kbar>div:nth-child(even){border-right:none}.stage.play .kbar{animation:fadein .6s ease forwards 3s}.toast{display:none}.stagewrap{padding-bottom:32px}}
+@media(max-width:760px){.kbar{grid-template-columns:repeat(2,1fr);row-gap:12px;position:static;transform:none;width:100%;margin-top:14px}.kbar>div:nth-child(even){border-right:none}.stage.play .kbar{animation:fadein .6s ease forwards 1.75s}.toast{display:none}.stagewrap{padding-bottom:32px}}
 @media(max-width:560px){.toast{position:static;max-width:none;margin:12px 0 0}.stagewrap{padding-bottom:24px}.mapcard .mapsvg{height:300px}}
 @media(min-width:761px) and (max-width:1024px){h1{max-width:700px}.widgets{grid-template-columns:repeat(2,1fr)}}
 
@@ -408,6 +408,81 @@ footer{border-top:1px solid var(--line);background:rgba(255,255,255,.55);padding
 @media(max-width:560px){.foot{flex-direction:column;align-items:flex-start;gap:10px}.foot .links{margin-left:0}}
 .foot .links a{color:var(--muted);font-weight:500}
 .foot .links a:hover{color:var(--ink)}
+
+
+/* ---- bələdçi (AI köməkçi) ---- */
+.bwrap{display:grid;grid-template-columns:1fr 400px;gap:38px;align-items:center}
+.bcopy h2{text-align:left;margin-bottom:12px}
+.bcopy .slead{text-align:left;margin:0 0 22px;max-width:none}
+.brow{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.brow .bic{flex:none;width:38px;height:38px;border-radius:11px;background:var(--sky);color:var(--blue);display:flex;align-items:center;justify-content:center}
+.brow .bic svg{width:19px;height:19px}
+.brow b{display:block;font-size:14.5px;letter-spacing:-.2px}
+.brow p{font-size:12.5px;color:var(--muted);margin-top:2px;max-width:400px}
+.chatcard{padding:0;overflow:hidden}
+.chead2{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(216,230,247,.7)}
+.chead2 .cav2{width:34px;height:34px;border-radius:99px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.chead2 .cav2 svg{width:17px;height:17px}
+.chead2 b{font-size:13.5px;display:block}
+.chead2 small{font-size:10.5px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:5px}
+.chead2 small i{width:6px;height:6px;border-radius:99px;background:var(--green);display:inline-block}
+.cbody{padding:14px 14px 16px;display:flex;flex-direction:column;gap:9px;min-height:326px}
+.lchip{align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(240,247,255,.9);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:700;color:#4E6885}
+.lchip .fl2{color:#C43D1F;display:inline-flex}
+.lchip .fl2 svg{width:12px;height:12px}
+.msg{max-width:86%;padding:9px 12px;border-radius:13px;font-size:12.5px;line-height:1.5;opacity:0}
+.msg.ai{align-self:flex-start;background:var(--sky);color:var(--ink);border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--green-soft);color:var(--ink);border-bottom-right-radius:4px}
+.msg .medmark{display:inline-block;background:#fff;border:1px solid #BBD6F5;color:var(--deep);font-weight:800;border-radius:7px;padding:0 6px;animation:medpulse 2.2s ease-in-out infinite}
+@keyframes medpulse{0%,100%{box-shadow:0 0 0 0 rgba(30,123,232,0)}50%{box-shadow:0 0 0 5px rgba(30,123,232,.16)}}
+.msg .hotchip2{display:inline-flex;align-items:center;gap:4px;background:#FDEAE3;color:#C43D1F;border-radius:7px;padding:0 6px;font-weight:800}
+.tyi{align-self:flex-start;display:inline-flex;gap:4px;background:var(--sky);border-radius:13px;border-bottom-left-radius:4px;padding:11px 13px;opacity:0}
+.tyi i{width:6px;height:6px;border-radius:99px;background:#7FA8D9;animation:tdot 1s ease-in-out infinite}
+.tyi i:nth-child(2){animation-delay:.15s}.tyi i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-3px);opacity:1}}
+/* 14s brifinq zaman xətti: hazırlanır → statistika → ssenari sətirləri → qeyd → sıfırlanma */
+.bprep{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:var(--muted);opacity:0;animation:w-prep 14s linear infinite}
+.bprep .tyi2{display:inline-flex;gap:4px}
+.bprep .tyi2 i{width:5px;height:5px;border-radius:99px;background:#7FA8D9;animation:tdot 1s ease-in-out infinite}
+.bprep .tyi2 i:nth-child(2){animation-delay:.15s}.bprep .tyi2 i:nth-child(3){animation-delay:.3s}
+@keyframes w-prep{0%{opacity:0}2%,12%{opacity:1}15%,100%{opacity:0}}
+.bblock{border:1px solid rgba(216,230,247,.9);background:rgba(255,255,255,.75);border-radius:13px;padding:11px 13px;opacity:0}
+.bblock .btl{font-size:9.5px;font-weight:800;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+.bsrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;padding:4px 0}
+.bsrow span:first-child{color:var(--muted);font-weight:600}
+.bsrow b{font-weight:800}
+.bstat{animation:w-stat 14s linear infinite}
+@keyframes w-stat{0%,14%{opacity:0;transform:translateY(8px)}17%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+.bscript{animation:w-scr 14s linear infinite;display:flex;flex-direction:column;gap:8px}
+@keyframes w-scr{0%,30%{opacity:0;transform:translateY(8px)}33%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+.bline{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.5;opacity:0}
+.bline .bno{flex:none;width:18px;height:18px;border-radius:99px;background:var(--sky);color:var(--deep);font:800 10.5px "Sora","Inter",sans-serif;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.bl1{animation:w-l1 14s linear infinite}
+@keyframes w-l1{0%,36%{opacity:0;transform:translateY(6px)}39%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+.bl2{animation:w-l2 14s linear infinite}
+@keyframes w-l2{0%,47%{opacity:0;transform:translateY(6px)}50%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+.bl3{animation:w-l3 14s linear infinite}
+@keyframes w-l3{0%,58%{opacity:0;transform:translateY(6px)}61%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+.bnote{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:700;color:var(--green);opacity:0;animation:w-note 14s linear infinite}
+.bnote svg{flex:none;width:15px;height:15px}
+@keyframes w-note{0%,70%{opacity:0;transform:translateY(6px)}73%,91%{opacity:1;transform:none}96%,100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){
+  .bblock,.bline,.bnote{animation:none!important;opacity:1;transform:none}
+  .bprep{display:none}
+  .msg .medmark,.medmark{animation:none}
+}
+@media(max-width:920px){.bwrap{grid-template-columns:1fr;gap:26px}.chatcard{max-width:440px;margin:0 auto;width:100%}}
+html.dark .chead2{border-bottom-color:#1E3A58}
+html.dark .lchip{background:rgba(16,32,52,.9);border-color:#2A4A6E;color:#9FB8D4}
+html.dark .msg.ai{background:rgba(30,123,232,.16);color:#E8F1FB}
+html.dark .msg.me{background:rgba(30,158,106,.16);color:#E8F1FB}
+html.dark .msg .medmark{background:#10263F;border-color:#2A4A6E;color:#8FC2FF}
+html.dark .msg .hotchip2{background:rgba(224,82,82,.16);color:#F58B8B}
+html.dark .tyi{background:rgba(30,123,232,.16)}
+html.dark .bblock{background:rgba(16,32,52,.7);border-color:#2A4A6E}
+html.dark .bsrow span:first-child{color:#9FB8D4}
+html.dark .bline .bno{background:rgba(30,123,232,.2);color:#8FC2FF}
+html.dark .brow .bic{background:rgba(30,123,232,.16);color:#8FC2FF}
 
 /* ---- dark theme ---- */
 html.dark{color-scheme:dark}
@@ -845,6 +920,57 @@ html.dark .faq summary svg{color:#8FA9C7}
   </div>
 </section>
 
+
+<section id="beledci" style="padding-top:0">
+  <div class="wrap">
+    <div class="bwrap">
+      <div class="bcopy">
+        <h2 class="h2 rv"><span data-az>Bələdçi sizinlə satır</span><span data-en>The Guide sells with you</span></h2>
+        <p class="slead rv"><span data-az>Platforma yalnız fürsəti tapmır — satışı da üzərinə götürür. Bələdçi zəngdən əvvəl nə deyəcəyinizi hazırlayır və rəqəmlərlə gücləndirir.</span><span data-en>The platform doesn’t just find the opportunity — it takes on the sale. The Guide prepares what to say before the call and backs it with numbers.</span></p>
+        <div class="brow rv">
+          <span class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg></span>
+          <span><b><span data-az>Nə deyəcəyinizi hazırlayır</span><span data-en>Prepares your talk track</span></b>
+          <p><span data-az>Hər elana uyğun zəng ssenarisi — satıcının vəziyyətinə görə.</span><span data-en>A call script tailored to each listing and seller.</span></p></span>
+        </div>
+        <div class="brow rv" style="transition-delay:.08s">
+          <span class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg></span>
+          <span><b><span data-az>Median arqumenti ilə güclü mövqe</span><span data-en>A strong position built on the median</span></b>
+          <p><span data-az>Rayonun median qiymətini qarşıya qoyur — danışıq rəqəmlə başlayır.</span><span data-en>Puts the district median on the table — the talk starts from data.</span></p></span>
+        </div>
+        <div class="brow rv" style="transition-delay:.16s">
+          <span class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span><b><span data-az>Satışı üzərimizə götürürük</span><span data-en>We take the sale on our shoulders</span></b>
+          <p><span data-az>Sənədlərdən bağlanışa qədər — proses Bələdçi ilə addım-addım.</span><span data-en>From paperwork to closing — step by step with the Guide.</span></p></span>
+        </div>
+      </div>
+      <div class="glass chatcard rv" style="transition-delay:.1s">
+        <div class="chead2">
+          <span class="cav2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+          <span><b><span data-az>Bələdçi</span><span data-en>Guide</span></b>
+          <small><i></i><span data-az>Bot köməkçi · ssenari hazırlayır</span><span data-en>Bot assistant · preparing scripts</span></small></span>
+        </div>
+        <div class="cbody">
+          <span class="lchip"><span class="fl2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span><span data-az>Mənzil, 3 otaqlı · Nərimanov · 132 000 ₼</span><span data-en>Apartment, 3 rooms · Narimanov · 132 000 ₼</span></span>
+          <span class="bprep"><span class="tyi2"><i></i><i></i><i></i></span><span data-az>Bələdçi zəng ssenarisini hazırlayır…</span><span data-en>The Guide is preparing your call script…</span></span>
+          <div class="bblock bstat">
+            <div class="btl"><span data-az>RAYON STATİSTİKASI · NƏRİMANOV</span><span data-en>DISTRICT STATS · NARIMANOV</span></div>
+            <div class="bsrow"><span data-az>Rayon medianı</span><span data-en>District median</span><b class="num"><span class="medmark">2 150 ₼/m²</span></b></div>
+            <div class="bsrow"><span data-az>Bu elan</span><span data-en>This listing</span><b class="num">1 764 ₼/m² <span class="hotchip2">−18%</span></b></div>
+            <div class="bsrow"><span data-az>Bugün rayonda</span><span data-en>Today in the district</span><b class="num"><span data-az>11 yeni elan</span><span data-en>11 new listings</span></b></div>
+          </div>
+          <div class="bblock bscript">
+            <div class="btl"><span data-az>ZƏNG SSENARİSİ</span><span data-en>CALL SCRIPT</span></div>
+            <div class="bline bl1"><span class="bno num">1</span><span><span data-az>«Salam. Nərimanovdakı 3 otaqlı mənziliniz üzrə zəng edirəm — ciddi alıcım var.»</span><span data-en>“Hello. I’m calling about your 3-room apartment in Narimanov — I have a serious buyer.”</span></span></div>
+            <div class="bline bl2"><span class="bno num">2</span><span><span data-az>«Rayonda median 2 150 ₼/m²-dir — qiymətiniz bazara görə cəlbedicidir, tez satmaq mümkündür.»</span><span data-en>“The district median is 2 150 ₼/m² — your price is attractive for the market, a quick sale is possible.”</span></span></div>
+            <div class="bline bl3"><span class="bno num">3</span><span><span data-az>«Sabah saat 15:00-da baxış təşkil edim?»</span><span data-en>“Shall I arrange a viewing tomorrow at 15:00?”</span></span></div>
+          </div>
+          <div class="bnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-az>Satışı üzərimizə götürürük — sənədlər, müqavilə, bağlanış.</span><span data-en>We take on the sale — paperwork, contract, closing.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="join" style="padding-top:0">
   <div class="wrap">
     <h2 class="h2 rv"><span data-az>Qeydiyyat necə işləyir?</span><span data-en>How registration works</span></h2>
@@ -1040,7 +1166,7 @@ html.dark .faq summary svg{color:#8FA9C7}
     stage.querySelectorAll(".cnt").forEach(function(el){el.textContent="0";});
     var mo=document.getElementById("zonemotion");
     timers.push(setTimeout(function(){try{mo&&mo.beginElement();}catch(e){}},150));
-    timers.push(setTimeout(counters,3100));
+    timers.push(setTimeout(counters,1900));
     timers.push(setTimeout(function(){stage.dataset.ready="1";},1250));
   }
   if(reduced){play();}
