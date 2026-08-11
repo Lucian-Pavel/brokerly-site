@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brokerly — how draw-on-map filtering works</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5FAFF; --ink:#0F2A43; --muted:#5B7593;
+  --blue:#1E7BE8; --deep:#0E5BC4; --sky:#EAF3FE; --line:#D8E6F7;
+  --green:#1E9E6A; --green-soft:#E4F6EE; --red:#E05252; --grad:#E88625;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.6;background:var(--bg);padding-bottom:80px}
+h1,h2,h3{font-family:"Manrope","Inter",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header{background:#0F2A43;color:#fff;padding:34px 0 30px;margin-bottom:34px}
+header h1{font-size:26px;letter-spacing:-.5px}
+header p{color:#9FB8D4;font-size:14px;margin-top:6px;max-width:760px}
+h2{font-size:21px;font-weight:800;letter-spacing:-.4px;margin:44px 0 6px}
+h2 .n{display:inline-flex;width:26px;height:26px;border-radius:99px;background:var(--blue);color:#fff;font-size:13px;align-items:center;justify-content:center;margin-right:10px;vertical-align:2px}
+p.d{color:#33506E;max-width:820px;margin-bottom:12px}
+.card{background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(15,42,67,.05)}
+pre{background:#0F2A43;color:#D7E6F8;border-radius:14px;padding:16px 18px;font-size:12.5px;line-height:1.55;overflow-x:auto;margin:10px 0 4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre .c{color:#7E9BBC}pre .k{color:#8FC2FF}pre .s{color:#9AE6B4}pre .f{color:#F0A45C}
+code{background:var(--sky);border:1px solid #CFE4FB;border-radius:6px;padding:1px 6px;font-size:12.5px;color:var(--deep);font-family:ui-monospace,Menlo,monospace}
+.note{background:var(--sky);border:1px solid #CFE4FB;border-radius:12px;padding:12px 16px;font-size:13px;color:#33506E;margin:12px 0}
+/* demo */
+.demo{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:14px}
+.stagebox{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#EDF4FC;touch-action:none;cursor:crosshair}
+.stagebox svg{display:block;width:100%;height:auto}
+.side{display:flex;flex-direction:column;gap:12px}
+.stat{padding:14px 18px}
+.stat .v{font-family:"Manrope",sans-serif;font-size:24px;font-weight:800}
+.stat .v.blue{color:var(--deep)} .stat .v.hot{color:#C43D1F}
+.stat .l{font-size:11.5px;color:var(--muted);font-weight:600}
+.btnrow{display:flex;gap:10px}
+button.rb{border:1px solid var(--line);background:#fff;color:var(--deep);border-radius:99px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+button.rb:hover{background:var(--sky)}
+.hint{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:6px;margin-top:16px}
+.tabs button{border:1px solid var(--line);background:rgba(255,255,255,.8);color:var(--muted);border-radius:10px;padding:7px 14px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit}
+.tabs button.on{background:var(--sky);color:var(--deep);border-color:#CFE4FB}
+.qout{display:none}.qout.on{display:block}
+.legend{display:flex;gap:16px;margin-top:8px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:99px;margin-right:5px;vertical-align:-1px}
+@media(max-width:820px){.demo{grid-template-columns:1fr}}
+table{border-collapse:collapse;font-size:13px;margin:8px 0}
+td,th{border:1px solid var(--line);padding:7px 12px;text-align:left}
+th{background:var(--sky);color:var(--deep)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Draw-on-map filtering — the full pipeline</h1>
+  <p>How Brokerly turns a rieltor's freehand stroke into a filtered listing set: pointer capture → simplification → GeoJSON polygon → client preview filter → authoritative server query → zone statistics. The demo below is fully functional — draw on it.</p>
+</div></header>
+<div class="wrap">
+
+<h2><span class="n">0</span>Live demo — draw a zone</h2>
+<p class="d">Hold and drag to draw. On release the ring closes, listings inside light up, stats compute, and the three query representations below update with your actual polygon.</p>
+
+<div class="demo">
+  <div class="stagebox" id="stage">
+    <svg id="map" viewBox="0 0 720 440">
+      <rect width="720" height="440" fill="#EDF4FC"/>
+      <g fill="#DDE9F8" id="blocks"></g>
+      <path id="zoneFill" fill="rgba(30,123,232,.12)" d=""/>
+      <path id="zoneLine" fill="none" stroke="#1E7BE8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d=""/>
+      <g id="pts"></g>
+    </svg>
+  </div>
+  <div class="side">
+    <div class="card stat"><div class="v blue" id="stCount">—</div><div class="l">listings inside the zone</div></div>
+    <div class="card stat"><div class="v blue" id="stMedian">—</div><div class="l">median AZN/m² (inside)</div></div>
+    <div class="card stat"><div class="v hot" id="stHot">—</div><div class="l">Əlimyandı (&lt; median −15%)</div></div>
+    <div class="btnrow"><button class="rb" id="reset">Təmizlə / Reset</button></div>
+    <div class="hint">Points: 60 seeded listings. Blue = outside, filled blue = inside, red = inside &amp; Əlimyandı.</div>
+    <div class="legend">
+      <span><i style="background:#fff;border:2px solid #1E7BE8"></i>outside</span>
+      <span><i style="background:#1E7BE8"></i>inside</span>
+      <span><i style="background:#E05252"></i>inside + Əlimyandı</span>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="on" data-q="qGeo">GeoJSON</button>
+  <button data-q="qSql">PostGIS SQL</button>
+  <button data-q="qDj">Django ORM</button>
+</div>
+<pre class="qout on" id="qGeo">— draw a zone first —</pre>
+<pre class="qout" id="qSql">— draw a zone first —</pre>
+<pre class="qout" id="qDj">— draw a zone first —</pre>
+
+<h2><span class="n">1</span>Capture the stroke (pointer events)</h2>
+<p class="d">Listen to <code>pointerdown / pointermove / pointerup</code> on a transparent overlay above the Leaflet map (in the CRM: <code>map.dragging.disable()</code> while draw-mode is on). Sample a vertex only when the pointer moved ≥ 6 px from the last one — this alone drops ~80% of raw events.</p>
+<pre><span class="c">// px → geo: Leaflet gives you this for free</span>
+overlay.addEventListener(<span class="s">"pointermove"</span>, e =&gt; {
+  <span class="k">if</span> (!drawing) <span class="k">return</span>;
+  <span class="k">const</span> pt = { x: e.offsetX, y: e.offsetY };
+  <span class="k">if</span> (dist(pt, last) &lt; <span class="f">6</span>) <span class="k">return</span>;      <span class="c">// distance throttle</span>
+  <span class="k">const</span> ll = map.<span class="f">containerPointToLatLng</span>([pt.x, pt.y]);
+  ring.push([ll.lng, ll.lat]);              <span class="c">// GeoJSON order: [lng, lat]!</span>
+  last = pt; redrawPreview(ring);
+});</pre>
+
+<h2><span class="n">2</span>Simplify (Ramer–Douglas–Peucker)</h2>
+<p class="d">A 4-second stroke still yields 200–400 vertices. RDP with a tolerance of ~8–15 meters cuts it to 20–40 without visible change. Fewer vertices = cheaper point-in-polygon on every listing and a smaller payload to the server.</p>
+<pre><span class="k">function</span> <span class="f">rdp</span>(points, eps) {
+  <span class="k">if</span> (points.length &lt; <span class="f">3</span>) <span class="k">return</span> points;
+  <span class="k">let</span> maxD = <span class="f">0</span>, idx = <span class="f">0</span>;
+  <span class="k">const</span> [a, b] = [points[<span class="f">0</span>], points[points.length - <span class="f">1</span>]];
+  <span class="k">for</span> (<span class="k">let</span> i = <span class="f">1</span>; i &lt; points.length - <span class="f">1</span>; i++) {
+    <span class="k">const</span> d = perpendicularDist(points[i], a, b);
+    <span class="k">if</span> (d &gt; maxD) { maxD = d; idx = i; }
+  }
+  <span class="k">return</span> maxD &gt; eps
+    ? [...rdp(points.slice(<span class="f">0</span>, idx + <span class="f">1</span>), eps).slice(<span class="f">0</span>, -<span class="f">1</span>), ...rdp(points.slice(idx), eps)]
+    : [a, b];
+}</pre>
+
+<h2><span class="n">3</span>Close the ring → GeoJSON polygon</h2>
+<p class="d">Append the first vertex to the end (GeoJSON rings must be closed), wrap as a <code>Polygon</code>. Reject degenerate shapes client-side: fewer than 4 vertices or area under ~0.5 ha.</p>
+<pre>ring.push(ring[<span class="f">0</span>]);
+<span class="k">const</span> zone = { type: <span class="s">"Polygon"</span>, coordinates: [ring] };</pre>
+
+<h2><span class="n">4</span>Instant client preview — bbox + ray casting</h2>
+<p class="d">For the listings already loaded on screen (a few hundred), filter locally so the rieltor sees the result the same frame. Two stages: a cheap bounding-box test throws away most points, then ray casting decides the rest. This exact function powers the demo above.</p>
+<pre><span class="k">function</span> <span class="f">inPolygon</span>(p, ring) {          <span class="c">// ray casting, O(vertices)</span>
+  <span class="k">let</span> inside = <span class="k">false</span>;
+  <span class="k">for</span> (<span class="k">let</span> i = <span class="f">0</span>, j = ring.length - <span class="f">1</span>; i &lt; ring.length; j = i++) {
+    <span class="k">const</span> [xi, yi] = ring[i], [xj, yj] = ring[j];
+    <span class="k">if</span> (((yi &gt; p[<span class="f">1</span>]) !== (yj &gt; p[<span class="f">1</span>])) &amp;&amp;
+        (p[<span class="f">0</span>] &lt; (xj - xi) * (p[<span class="f">1</span>] - yi) / (yj - yi) + xi))
+      inside = !inside;                   <span class="c">// odd crossings = inside</span>
+  }
+  <span class="k">return</span> inside;
+}
+<span class="c">// bbox prefilter first:</span>
+<span class="k">const</span> bb = bboxOf(ring);
+<span class="k">const</span> preview = listings.filter(l =&gt;
+  l.lng &gt;= bb.minX &amp;&amp; l.lng &lt;= bb.maxX &amp;&amp;
+  l.lat &gt;= bb.minY &amp;&amp; l.lat &lt;= bb.maxY &amp;&amp;
+  <span class="f">inPolygon</span>([l.lng, l.lat], ring));</pre>
+<svg viewBox="0 0 640 150" style="max-width:640px;display:block;margin:14px 0">
+  <polygon points="60,110 150,30 330,20 480,55 560,120 400,135 180,138" fill="rgba(30,123,232,.10)" stroke="#1E7BE8" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="300" cy="80" r="6" fill="#1E7BE8"/>
+  <line x1="300" y1="80" x2="630" y2="80" stroke="#E05252" stroke-width="2" stroke-dasharray="6 5"/>
+  <circle cx="521" cy="80" r="4" fill="#E05252"/>
+  <text x="308" y="70" font-family="Inter" font-size="12" font-weight="600" fill="#0E5BC4">listing</text>
+  <text x="540" y="70" font-family="Inter" font-size="12" font-weight="600" fill="#C43D1F">1 crossing → odd → inside</text>
+</svg>
+
+<h2><span class="n">5</span>Authoritative server query</h2>
+<p class="d">The client preview is cosmetic; the server answers with the real set (all listings, not just loaded ones). With PostGIS the polygon goes in as GeoJSON and the GiST index does the bbox stage for you (<code>ST_Contains</code> internally uses the <code>&amp;&amp;</code> index operator first).</p>
+<pre><span class="c">-- one-time schema</span>
+<span class="k">ALTER TABLE</span> listings <span class="k">ADD COLUMN</span> geom geometry(Point, <span class="f">4326</span>);
+<span class="k">UPDATE</span> listings <span class="k">SET</span> geom = ST_SetSRID(ST_MakePoint(lng, lat), <span class="f">4326</span>);
+<span class="k">CREATE INDEX</span> listings_geom_gix <span class="k">ON</span> listings <span class="k">USING</span> GIST (geom);
+
+<span class="c">-- per draw (polygon arrives as GeoJSON string :zone)</span>
+<span class="k">SELECT</span> id, price, area_m2, ptype
+<span class="k">FROM</span> listings
+<span class="k">WHERE</span> status = <span class="s">'active'</span>
+  <span class="k">AND</span> ST_Contains(
+        ST_SetSRID(ST_GeomFromGeoJSON(:zone), <span class="f">4326</span>),
+        geom);</pre>
+<pre><span class="c"># Django (GeoDjango) equivalent — the CRM backend is Django</span>
+<span class="k">from</span> django.contrib.gis.geos <span class="k">import</span> GEOSGeometry
+zone = GEOSGeometry(request.body[<span class="s">"zone"</span>])      <span class="c"># GeoJSON in</span>
+<span class="k">if</span> zone.num_coords &gt; <span class="f">200</span> <span class="k">or not</span> zone.valid:   <span class="c"># server-side guards</span>
+    zone = zone.buffer(<span class="f">0</span>)                       <span class="c"># fix self-intersections</span>
+qs = Listing.objects.filter(status=<span class="s">"active"</span>, geom__within=zone)</pre>
+<div class="note"><b>No PostGIS (DynamoDB path)?</b> Cover the polygon's bbox with geohash cells (precision 6–7), query the geohash GSI for candidates, then run the same ray-casting check in the Lambda. Same three stages — cheap cover, index fetch, exact test.</div>
+
+<h2><span class="n">6</span>Zone statistics (the "Zona statistikası" card)</h2>
+<p class="d">One aggregate query on the same filtered set — median via <code>percentile_cont</code>, and the Əlimyandı count reuses the zone median with the threshold θ (e.g. 15%).</p>
+<pre><span class="k">SELECT</span>
+  count(*)                                            <span class="k">AS</span> total,
+  percentile_cont(<span class="f">0.5</span>) <span class="k">WITHIN GROUP</span> (<span class="k">ORDER BY</span> price/area_m2) <span class="k">AS</span> median_m2,
+  count(*) <span class="k">FILTER</span> (<span class="k">WHERE</span> price/area_m2 &lt;
+        (<span class="k">SELECT</span> percentile_cont(<span class="f">0.5</span>) <span class="k">WITHIN GROUP</span> (<span class="k">ORDER BY</span> price/area_m2)
+         <span class="k">FROM</span> zone_set) * <span class="f">0.85</span>)                     <span class="k">AS</span> alimyandi
+<span class="k">FROM</span> zone_set;   <span class="c">-- zone_set = CTE with the ST_Contains filter from step 5</span></pre>
+
+<h2><span class="n">7</span>Production guards</h2>
+<table>
+  <tr><th>Guard</th><th>Why</th></tr>
+  <tr><td>Vertex cap ≤ 200 after RDP</td><td>bounds PIP cost and payload size</td></tr>
+  <tr><td><code>ST_MakeValid</code> / <code>buffer(0)</code> server-side</td><td>freehand strokes self-intersect constantly</td></tr>
+  <tr><td>Area cap (e.g. ≤ 200 km²)</td><td>"whole-country" zones would scan everything</td></tr>
+  <tr><td>Debounce redraws 250 ms</td><td>user adjusts the shape repeatedly</td></tr>
+  <tr><td>Cache stats by polygon hash (5 min)</td><td>same zone re-queried during a session</td></tr>
+</table>
+
+</div>
+<script>
+(function(){
+  // seeded PRNG for reproducible demo/tests
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  var rnd = mulberry32(20260811);
+
+  // blocks background
+  var blocks=document.getElementById("blocks"), bfrag="";
+  for(var i=0;i<26;i++){
+    var w=50+rnd()*90, h=34+rnd()*56, x=rnd()*(720-w), y=rnd()*(440-h);
+    bfrag+='<rect x="'+x.toFixed(0)+'" y="'+y.toFixed(0)+'" width="'+w.toFixed(0)+'" height="'+h.toFixed(0)+'" rx="10"/>';
+  }
+  blocks.innerHTML=bfrag;
+
+  // 60 listings with px coords + price per m²
+  var L=[];
+  for(var i=0;i<60;i++){
+    L.push({x:20+rnd()*680, y:20+rnd()*400, ppm: Math.round(1400+rnd()*1600)});
+  }
+  var pts=document.getElementById("pts");
+  function renderPts(insideIdx, hotIdx){
+    var s="";
+    L.forEach(function(p,i){
+      var cls = hotIdx.has(i) ? 'fill="#E05252" stroke="#fff"' :
+                insideIdx.has(i) ? 'fill="#1E7BE8" stroke="#fff"' :
+                'fill="#fff" stroke="#1E7BE8"';
+      s+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="6" stroke-width="2" '+cls+'/>';
+    });
+    pts.innerHTML=s;
+  }
+  renderPts(new Set(), new Set());
+
+  // --- the same functions the doc explains ---
+  function inPolygon(p, ring){
+    var inside=false;
+    for(var i=0,j=ring.length-1;i<ring.length;j=i++){
+      var xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];
+      if(((yi>p[1])!==(yj>p[1])) && (p[0] < (xj-xi)*(p[1]-yi)/(yj-yi)+xi)) inside=!inside;
+    }
+    return inside;
+  }
+  function perp(p,a,b){
+    var dx=b[0]-a[0], dy=b[1]-a[1], L2=dx*dx+dy*dy;
+    if(!L2) return Math.hypot(p[0]-a[0],p[1]-a[1]);
+    var t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L2));
+    return Math.hypot(p[0]-(a[0]+t*dx), p[1]-(a[1]+t*dy));
+  }
+  function rdp(pts,eps){
+    if(pts.length<3) return pts;
+    var maxD=0, idx=0, a=pts[0], b=pts[pts.length-1];
+    for(var i=1;i<pts.length-1;i++){var d=perp(pts[i],a,b); if(d>maxD){maxD=d;idx=i;}}
+    return maxD>eps
+      ? rdp(pts.slice(0,idx+1),eps).slice(0,-1).concat(rdp(pts.slice(idx),eps))
+      : [a,b];
+  }
+
+  // px → fake Baku lat/lng (linear map, for the query displays)
+  function toLL(p){ return [ (49.80+p[0]/720*0.12).toFixed(5), (40.435-p[1]/440*0.07).toFixed(5) ]; } // [lng,lat]
+
+  var stage=document.getElementById("stage"), svg=document.getElementById("map");
+  var zl=document.getElementById("zoneLine"), zf=document.getElementById("zoneFill");
+  var raw=[], drawing=false;
+
+  function svgPoint(e){
+    var r=svg.getBoundingClientRect();
+    return [ (e.clientX-r.left)*720/r.width, (e.clientY-r.top)*440/r.height ];
+  }
+  function pathOf(ring, close){
+    if(!ring.length) return "";
+    return "M"+ring.map(function(p){return p[0].toFixed(1)+" "+p[1].toFixed(1)}).join(" L ")+(close?" Z":"");
+  }
+  stage.addEventListener("pointerdown", function(e){
+    drawing=true; raw=[svgPoint(e)];
+    zf.setAttribute("d",""); zl.setAttribute("d","");
+    renderPts(new Set(), new Set());
+    setOut("— drawing… —");
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener("pointermove", function(e){
+    if(!drawing) return;
+    var p=svgPoint(e), last=raw[raw.length-1];
+    if(Math.hypot(p[0]-last[0],p[1]-last[1])<6) return;   // step 1: distance throttle
+    raw.push(p);
+    zl.setAttribute("d", pathOf(raw,false));
+  });
+  function finish(){
+    if(!drawing) return; drawing=false;
+    if(raw.length<4){ setOut("— zone too small, draw again —"); zl.setAttribute("d",""); return; }
+    var ring=rdp(raw, 4);                                  // step 2: simplify
+    ring.push(ring[0]);                                    // step 3: close ring
+    zl.setAttribute("d", pathOf(ring,true));
+    zf.setAttribute("d", pathOf(ring,true));
+    // step 4: bbox + PIP
+    var xs=ring.map(function(p){return p[0]}), ys=ring.map(function(p){return p[1]});
+    var bb={minX:Math.min.apply(0,xs),maxX:Math.max.apply(0,xs),minY:Math.min.apply(0,ys),maxY:Math.max.apply(0,ys)};
+    var inside=new Set();
+    L.forEach(function(l,i){
+      if(l.x<bb.minX||l.x>bb.maxX||l.y<bb.minY||l.y>bb.maxY) return;
+      if(inPolygon([l.x,l.y], ring)) inside.add(i);
+    });
+    // step 6: stats
+    var vals=[...inside].map(function(i){return L[i].ppm}).sort(function(a,b){return a-b});
+    var med = vals.length? (vals.length%2? vals[(vals.length-1)/2] : Math.round((vals[vals.length/2-1]+vals[vals.length/2])/2)) : 0;
+    var hot=new Set([...inside].filter(function(i){return L[i].ppm < med*0.85}));
+    renderPts(inside, hot);
+    document.getElementById("stCount").textContent = inside.size;
+    document.getElementById("stMedian").textContent = med? med.toLocaleString("en").replace(/,/g," ") : "—";
+    document.getElementById("stHot").textContent = hot.size;
+    // query displays
+    var ll=ring.map(toLL);
+    var geo={type:"Polygon",coordinates:[ll.map(function(c){return [parseFloat(c[0]),parseFloat(c[1])]})]};
+    var gs=JSON.stringify(geo,null,1).replace(/\n\s*(-?\d)/g," $1").replace(/\n\s*\]/g," ]");
+    document.getElementById("qGeo").textContent = gs;
+    document.getElementById("qSql").textContent =
+"SELECT id, price, area_m2, ptype\nFROM listings\nWHERE status = 'active'\n  AND ST_Contains(\n        ST_SetSRID(ST_GeomFromGeoJSON('"+JSON.stringify(geo)+"'), 4326),\n        geom);\n\n-- "+inside.size+" rows · vertices after RDP: "+(ring.length-1);
+    document.getElementById("qDj").textContent =
+"zone = GEOSGeometry('"+JSON.stringify(geo)+"')\nif not zone.valid: zone = zone.buffer(0)\nqs = Listing.objects.filter(status='active', geom__within=zone)\n# → "+inside.size+" listings";
+    window.__zone = {inside: inside.size, hot: hot.size, median: med, vertices: ring.length-1};
+  }
+  stage.addEventListener("pointerup", finish);
+  stage.addEventListener("pointercancel", finish);
+  function setOut(msg){ ["qGeo","qSql","qDj"].forEach(function(id){document.getElementById(id).textContent=msg;}); }
+  document.getElementById("reset").addEventListener("click", function(){
+    raw=[]; zl.setAttribute("d",""); zf.setAttribute("d","");
+    renderPts(new Set(), new Set());
+    ["stCount","stMedian","stHot"].forEach(function(id){document.getElementById(id).textContent="—";});
+    setOut("— draw a zone first —");
+  });
+  // tabs
+  document.querySelectorAll(".tabs button").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".tabs button").forEach(function(x){x.classList.remove("on")});
+      document.querySelectorAll(".qout").forEach(function(x){x.classList.remove("on")});
+      b.classList.add("on");
+      document.getElementById(b.getAttribute("data-q")).classList.add("on");
+    });
+  });
+  // test hook
+  window.__drawTest = function(cx,cy,rx,ry){
+    var ev=function(type,x,y){
+      var r=svg.getBoundingClientRect();
+      return new PointerEvent(type,{clientX:r.left+x*r.width/720, clientY:r.top+y*r.height/440, pointerId:1, bubbles:true});
+    };
+    var first=[cx+rx, cy];
+    stage.dispatchEvent(ev("pointerdown", first[0], first[1]));
+    for(var a=0.1;a<=Math.PI*2;a+=0.12){
+      stage.dispatchEvent(ev("pointermove", cx+Math.cos(a)*rx, cy+Math.sin(a)*ry));
+    }
+    stage.dispatchEvent(ev("pointerup", first[0], first[1]));
+    return window.__zone;
+  };
+})();
+</script>
+</body>
+</html>
