@@ -37,6 +37,7 @@ Currency: AZN. Monthly only (no annual yet). Cancel = no charge next cycle, acce
 | `crm.clients` + `crm.pipeline` | ✗ | ✗ | ✓ | |
 | `tasks.panel` (Tapşırıqlar + Bugün) | ✗ | ✗ | ✓ | |
 | `support.priority` | ✗ | ✗ | ✓ | |
+| `assistant.call_scripts` (Bələdçi) | ✗ | ✗ | ✓ | Zəng ssenarisi + rayon statistikası ilə satış köməkçisi; satış prosesinin müşayiəti |
 | `tours.virtual_360` | ✗ | ✗ | ✓ | Hələ hazırlanır. Broker mənzil/villa/ofis fotolarını yükləyir → süni intellekt virtual tur qurur. DİQQƏT: saytda canlı funksiya kimi təqdim olunur |
 | `features.all_new_included` | ✗ | ✗ | ✓ | yeni funksiya default olaraq PRO flag alır |
 
