@@ -37,6 +37,7 @@ Currency: AZN. Monthly only (no annual yet). Cancel = no charge next cycle, acce
 | `crm.clients` + `crm.pipeline` | ✗ | ✗ | ✓ | |
 | `tasks.panel` (Tapşırıqlar + Bugün) | ✗ | ✗ | ✓ | |
 | `support.priority` | ✗ | ✗ | ✓ | |
+| `tours.virtual_360` | ✗ | ✗ | ✓ | TEZLİKLƏ. Broker mənzil/villa/ofis fotolarını yükləyir → Aİ virtual tur qurur. Saytda "tezliklə" işarəli |
 | `features.all_new_included` | ✗ | ✗ | ✓ | yeni funksiya default olaraq PRO flag alır |
 
 ## Enforcement qaydaları
