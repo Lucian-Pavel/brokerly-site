@@ -331,22 +331,22 @@ html.js .rv.in{opacity:1;transform:none}
 .hbg use{fill:rgba(255,255,255,.92);stroke:#D3E2F4;stroke-width:1.5;transition:fill .45s ease,stroke .45s ease}
 .hx:not(.ghost):hover .hbg use{fill:var(--grad);stroke:#D6741A}
 .hx.fhot:hover .hbg use{fill:#E05252;stroke:#C94444}
+.hx.fgrn:hover .hbg use{fill:var(--green);stroke:#178A5B}
 .hx.ghost{pointer-events:none}
 .hx.ghost .hbg{filter:none}
 .hx.ghost .hbg use{fill:rgba(255,255,255,.35);stroke:#DFEAF7}
 .hxin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 15%}
-.hx .ic{width:40px;height:40px;border-radius:12px;background:var(--sky);color:var(--blue);display:flex;align-items:center;justify-content:center;border:1px solid #CFE4FB;margin-bottom:9px;transition:background .45s,color .45s,border-color .45s}
-.hx .ic svg{width:20px;height:20px}
-.hx .ic.grn{background:var(--green-soft);color:var(--green);border-color:#BFE8D4}
+.hx .ic{width:42px;height:42px;color:var(--grad);display:flex;align-items:center;justify-content:center;margin-bottom:9px;transition:color .45s}
+.hx .ic svg{width:32px;height:32px}
+.hx .ic.grn{color:var(--green)}
 .hx h3{font-size:14px;font-weight:800;letter-spacing:-.2px;margin-bottom:5px;transition:color .45s}
 .hx p{color:var(--muted);font-size:11px;line-height:1.45;transition:color .45s}
-.hpill{margin-top:7px;display:inline-flex;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.3px;background:var(--sky);border:1px solid #CFE4FB;color:var(--deep);white-space:nowrap;transition:background .45s,color .45s,border-color .45s}
+.hx.fhot .ic{color:#E05252}
 .hx:not(.ghost):hover h3{color:#fff}
 .hx:not(.ghost):hover p{color:rgba(255,255,255,.92)}
-.hx:not(.ghost):hover .ic{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.32);color:#fff}
-.hx:not(.ghost):hover .hpill{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.34);color:#fff}
-@media(max-width:1180px){.honey{--hw:168px;--hg:12px}.hx h3{font-size:13px}.hx p{font-size:10.5px}.hx .ic{width:36px;height:36px}}
-@media(max-width:1024px){.honey{--hw:152px;--hg:10px}.hx p,.hpill{display:none}.hx h3{font-size:12.5px;margin:0}.hx .ic{margin-bottom:8px}}
+.hx:not(.ghost):hover .ic{color:#fff}
+@media(max-width:1180px){.honey{--hw:168px;--hg:12px}.hx h3{font-size:13px}.hx p{font-size:10.5px}.hx .ic{width:36px;height:36px}.hx .ic svg{width:27px;height:27px}}
+@media(max-width:1024px){.honey{--hw:152px;--hg:10px}.hx p{display:none}.hx h3{font-size:12.5px;margin:0}.hx .ic{margin-bottom:8px}}
 @media(max-width:850px){
   .hrow{display:contents}
   .honey{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
@@ -356,12 +356,13 @@ html.js .rv.in{opacity:1;transform:none}
   .hxin{position:static;inset:auto;padding:18px 14px;width:100%}
   .hx:not(.ghost):hover{background:var(--grad);border-color:#D6741A}
   .hx.fhot:hover{background:#E05252;border-color:#C94444}
+  .hx.fgrn:hover{background:var(--green);border-color:#178A5B}
   .hx h3{font-size:13.5px;margin-bottom:4px}
   .hx p{display:block;font-size:11px}
-  .hpill{display:none}
   .hx .ic{width:38px;height:38px;margin-bottom:8px}
+  .hx .ic svg{width:29px;height:29px}
 }
-@media(max-width:520px){.honey{--hw:41vw}.hx{min-height:112px}.hx p,.hpill{display:none}.hx .ic{width:34px;height:34px;margin-bottom:8px}.hx .ic svg{width:18px;height:18px}.hx h3{font-size:12px;margin:0}.hxin{padding:12px 10px}}
+@media(max-width:520px){.honey{--hw:41vw}.hx{min-height:112px}.hx p{display:none}.hx .ic{width:34px;height:34px;margin-bottom:8px}.hx .ic svg{width:26px;height:26px}.hx h3{font-size:12px;margin:0}.hxin{padding:12px 10px}}
 
 /* pricing */
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -445,24 +446,28 @@ html.dark .widget{background:rgba(17,34,55,.8)}
 html.dark .widget.hotw{background:rgba(64,30,24,.42)}
 html.dark .widget.grnw{background:rgba(18,52,40,.42)}
 html.dark .widget.bluw{background:rgba(14,40,70,.55)}
-html.dark .wic,html.dark .hx .ic,html.dark .jic{background:rgba(30,123,232,.16);border-color:#2A4A6E;color:#8FC2FF}
+html.dark .wic,html.dark .jic{background:rgba(30,123,232,.16);border-color:#2A4A6E;color:#8FC2FF}
+html.dark .hx .ic{color:#F0A45C}
 html.dark .widget.hotw .wic{background:rgba(224,82,82,.16);border-color:#5C3038;color:#F58B8B}
-html.dark .widget.grnw .wic,html.dark .hx .ic.grn{background:rgba(30,158,106,.16);border-color:#2A5C4A;color:#5BC79A}
+html.dark .widget.grnw .wic{background:rgba(30,158,106,.16);border-color:#2A5C4A;color:#5BC79A}
+html.dark .hx .ic.grn{color:#5BC79A}
 html.dark .honeybg use{stroke:#22405F}
 html.dark .hbg use{fill:rgba(16,32,52,.93);stroke:#2A4A6E}
 html.dark .hx:not(.ghost):hover .hbg use{fill:#CE7517;stroke:#B26411}
 html.dark .hx.fhot:hover .hbg use{fill:#C64A4A;stroke:#A83E3E}
+html.dark .hx.fgrn:hover .hbg use{fill:#1B8A5F;stroke:#14724E}
 html.dark .hx.ghost .hbg use{fill:rgba(16,32,52,.42);stroke:#1E3A58}
 html.dark .hob{background:radial-gradient(closest-side, rgba(232,134,37,.13), rgba(232,134,37,.07) 55%, rgba(232,134,37,0) 100%)}
 html.dark .hx p{color:#9FB8D4}
-html.dark .hpill{background:rgba(30,123,232,.18);border-color:#2A4A6E;color:#8FC2FF}
+html.dark .hx.fhot .ic{color:#F58B8B}
 html.dark .hx:not(.ghost):hover h3{color:#fff}
 html.dark .hx:not(.ghost):hover p{color:rgba(255,255,255,.92)}
-html.dark .hx:not(.ghost):hover .ic,html.dark .hx:not(.ghost):hover .hpill{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28);color:#fff}
+html.dark .hx:not(.ghost):hover .ic{color:#fff}
 @media(max-width:850px){
   html.dark .hx{background:rgba(16,32,52,.93);border-color:#2A4A6E}
   html.dark .hx:not(.ghost):hover{background:#CE7517;border-color:#B26411}
   html.dark .hx.fhot:hover{background:#C64A4A;border-color:#A83E3E}
+  html.dark .hx.fgrn:hover{background:#1B8A5F;border-color:#14724E}
 }
 html.dark .widget.bluw .wic{background:rgba(30,123,232,.16);border-color:#2A4A6E;color:#8FC2FF}
 html.dark .jic.grn{background:rgba(30,158,106,.16);border-color:#2A5C4A;color:#5BC79A}
@@ -547,6 +552,8 @@ html.dark .faq summary svg{color:#8FA9C7}
 </div>
 
 <div class="stagewrap">
+  <h2 class="h2 rv"><span data-az>Xəritəmizdən başlayın</span><span data-en>Start from our map</span></h2>
+  <p class="slead rv" style="margin-bottom:28px"><span data-az>Rayon seçin və ya zonanı sərbəst çəkin — nəticə dərhal qarşınızda.</span><span data-en>Pick a district or draw a zone freehand — results appear instantly.</span></p>
   <div class="stage" id="stage">
     <div class="mapcard">
       <div class="maphead">
@@ -753,11 +760,10 @@ html.dark .faq summary svg{color:#8FA9C7}
             <svg class="hbg" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg>
             <div class="hxin">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
-            <h3><span data-az>Əlimyandı skoru</span><span data-en>Əlimyandı score</span></h3>
+            <h3><span data-az>Əlimyandı</span><span data-en>Əlimyandı</span></h3>
             <p><span data-az>Mediandan aşağı qiymət — tələsən satıcı siqnalı.</span><span data-en>Below median — a motivated-seller signal.</span></p>
-            <span class="hpill"><span data-az>Yalnız Brokerly-də</span><span data-en>Only on Brokerly</span></span>
           </div></div></div>
-          <div class="hx rv" style="transition-delay:.25s"><svg class="hhit" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg><div class="hlift">
+          <div class="hx fgrn rv" style="transition-delay:.25s"><svg class="hhit" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg><div class="hlift">
             <svg class="hbg" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg>
             <div class="hxin">
             <div class="ic grn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
@@ -784,7 +790,7 @@ html.dark .faq summary svg{color:#8FA9C7}
           <div class="hx rv" style="transition-delay:.4s"><svg class="hhit" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg><div class="hlift">
             <svg class="hbg" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg>
             <div class="hxin">
-            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5v11"/><path d="M12 5v6"/><path d="M18 5v14"/></svg></div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 13a3 3 0 1 0-6 0"/><circle cx="12" cy="8" r="2"/><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/></svg></div>
             <h3><span data-az>Müştəri CRM-i</span><span data-en>Client CRM</span></h3>
             <p><span data-az>Müştəri bazası və sövdələşmə axını bir yerdə.</span><span data-en>Client base and deal pipeline in one place.</span></p>
           </div></div></div>
@@ -810,14 +816,14 @@ html.dark .faq summary svg{color:#8FA9C7}
             <div class="hxin">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
             <h3><span data-az>Proqnoz</span><span data-en>Forecast</span></h3>
-            <p><span data-az>Tezliklə — qiymət trendi proqnozları.</span><span data-en>Coming soon — price-trend forecasts.</span></p>
+            <p><span data-az>Qiymət trendi üzrə proqnozlar.</span><span data-en>Price-trend forecasts.</span></p>
           </div></div></div>
           <div class="hx rv" style="transition-delay:.6s"><svg class="hhit" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg><div class="hlift">
             <svg class="hbg" viewBox="0 0 200 231" preserveAspectRatio="none" aria-hidden="true"><use href="#hexs"/></svg>
             <div class="hxin">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></div>
             <h3><span data-az>Sənəd analizi</span><span data-en>Document analysis</span></h3>
-            <p><span data-az>Tezliklə — sənədlərin Aİ ilə analizi.</span><span data-en>Coming soon — AI document analysis.</span></p>
+            <p><span data-az>Sənədlərin Aİ ilə analizi.</span><span data-en>AI document analysis.</span></p>
           </div></div></div>
           <div class="hx ghost rv" aria-hidden="true"><div class="hlift"><svg class="hbg" viewBox="0 0 200 231" preserveAspectRatio="none"><use href="#hexs"/></svg></div></div>
         </div>
@@ -872,7 +878,7 @@ html.dark .faq summary svg{color:#8FA9C7}
         <div class="pd"><span data-az>Bazarı tanımaq üçün</span><span data-en>To get to know the market</span></div>
         <ul>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Elanlara baxış (gündəlik limitlə)</span><span data-en>Listing browsing (daily limit)</span></span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Əsas portallar</span><span data-en>Core portals</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>1 portal mənbəyi</span><span data-en>1 portal source</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>1 bildiriş qaydası</span><span data-en>1 alert rule</span></span></li>
         </ul>
         <a class="btn ghost" href="https://app.brokerly.az"><span data-az>Pulsuz başla</span><span data-en>Start free</span></a>
@@ -882,10 +888,11 @@ html.dark .faq summary svg{color:#8FA9C7}
         <div class="price num">18.99 <span class="unit">AZN / <span data-az>ay</span><span data-en>mo</span></span></div>
         <div class="pd"><span data-az>Fərdi rieltor üçün</span><span data-en>For the individual realtor</span></div>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Bütün portallar, dublikatsız</span><span data-en>All portals, deduplicated</span></span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Sahibindən filtri</span><span data-en>Owner-direct filter</span></span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>3 bildiriş qaydası</span><span data-en>3 alert rules</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Bütün portallar — dublikatsız</span><span data-en>All portals — deduplicated</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Zəngin axtarış filtrləri — sahibindən daxil</span><span data-en>Rich search filters — incl. owner-direct</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Xəritə üzərində axtarış</span><span data-en>Map search</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>3 müştəri sorğusu</span><span data-en>3 client requests</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Ani bildirişlər — 3 qayda</span><span data-en>Instant alerts — 3 rules</span></span></li>
         </ul>
         <a class="btn ghost" href="https://app.brokerly.az"><span data-az>Standart-ı seç</span><span data-en>Choose Standart</span></a>
       </div>
@@ -902,6 +909,7 @@ html.dark .faq summary svg{color:#8FA9C7}
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Zona medianları və qiymət dinamikası</span><span data-en>Zone medians and price dynamics</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Həftəlik PDF bazar hesabatı</span><span data-en>Weekly PDF market report</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Limitsiz bildiriş qaydası</span><span data-en>Unlimited alert rules</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Limitsiz müştəri sorğusu</span><span data-en>Unlimited client requests</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Satış, kirayə və barter elanları</span><span data-en>Sale, rental, and barter listings</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Portal mənbələrinin seçimi</span><span data-en>Choice of portal sources</span></span></li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><span data-az>Müştəri CRM-i və sövdələşmə axını</span><span data-en>Client CRM & deal pipeline</span></span></li>
