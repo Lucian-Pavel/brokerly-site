@@ -299,7 +299,8 @@ html.js .toast{opacity:0;transform:translateY(-16px) scale(.95)}
 .toast .tt b{color:var(--ink);display:block;font-size:11.5px}
 .toast .tt u{text-decoration:none;color:var(--blue);font-weight:700}
 .mapbub{position:absolute;z-index:5;left:0;top:0;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 10px 26px -9px rgba(15,42,67,.32);padding:9px 13px;pointer-events:none;opacity:0;transform:translateY(7px);transition:opacity .38s ease,transform .38s ease;white-space:nowrap}
-.mapbub::after{content:"";position:absolute;left:26px;bottom:-6px;transform:rotate(45deg);width:10px;height:10px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mapbub::after{content:"";position:absolute;left:var(--ax,26px);bottom:-6px;transform:rotate(45deg);width:10px;height:10px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mapbub.flip::after{bottom:auto;top:-6px;transform:rotate(225deg)}
 .mapbub.on{opacity:1;transform:none}
 .mapbub b{font-family:"Manrope",sans-serif;font-size:15px;font-weight:800;letter-spacing:-.3px;margin-right:.27em;color:var(--ink)}
 .mapbub .bl{font-size:15px;color:#4E6885;font-weight:600}
@@ -1238,8 +1239,14 @@ html.dark .faq summary svg{color:#8FA9C7}
     var r=a.getBoundingClientRect(), c=mcard.getBoundingClientRect();
     bub.innerHTML='<b class="'+d.cls+'"><span data-az>'+d.b[0]+'</span><span data-en>'+d.b[1]+'</span></b><span class="bl"><span data-az>'+d.t[0]+'</span><span data-en>'+d.t[1]+'</span></span>';
     var bw=bub.offsetWidth||190, bh=bub.offsetHeight||40;
-    var x=Math.min(Math.max(r.left-c.left+r.width/2-34,10), c.width-bw-10);
-    var y=Math.max(r.top-c.top-bh-10, 48);
+    var cx=r.left-c.left+r.width/2;               /* lövbərin mərkəzi */
+    var x=Math.min(Math.max(cx-34,10), c.width-bw-10);
+    var above=r.top-c.top-bh-10;
+    var flip=above<46;                            /* yuxarıda yer yoxdursa — altına keç */
+    var y=flip? Math.min(r.bottom-c.top+10, c.height-bh-8) : above;
+    bub.classList.toggle("flip",flip);
+    var ax=Math.min(Math.max(cx-x-5,12), bw-22);  /* ox həmişə lövbərə baxır */
+    bub.style.setProperty("--ax",ax+"px");
     bub.style.left=x+"px"; bub.style.top=y+"px";
   }
   function bubMove(){
