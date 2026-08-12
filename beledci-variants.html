@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bələdçi kartı — sadələşdirilmiş variantlar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap');
+:root{
+  --bg:#F5FAFF; --ink:#0F2A43; --muted:#5B7593;
+  --blue:#1E7BE8; --deep:#0E5BC4; --sky:#EAF3FE; --line:#D8E6F7;
+  --green:#1E9E6A; --green-soft:#E4F6EE; --red:#E05252;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",system-ui,sans-serif;background:#FBFDFF;color:var(--ink);font-size:14px;line-height:1.5;padding:34px 22px 60px}
+.num{font-variant-numeric:tabular-nums;font-family:"Manrope","Inter",sans-serif}
+h1{font-family:"Manrope","Inter",sans-serif;font-size:26px;letter-spacing:-.6px;text-align:center}
+.lead{text-align:center;color:var(--muted);margin:8px 0 34px;font-size:13.5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:26px;max-width:1240px;margin:0 auto}
+.slot h2{font-size:13px;font-weight:800;letter-spacing:.4px;color:var(--deep);margin-bottom:4px}
+.slot .why{font-size:11.5px;color:var(--muted);margin-bottom:12px;min-height:34px}
+.card{background:rgba(255,255,255,.85);border:1px solid rgba(216,230,247,.95);border-radius:20px;box-shadow:0 1px 2px rgba(15,42,67,.05);overflow:hidden}
+.chead{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(216,230,247,.7)}
+.cav{width:34px;height:34px;border-radius:99px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.cav svg{width:17px;height:17px}
+.chead b{font-size:13.5px;display:block}
+.chead small{font-size:10.5px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:5px}
+.chead small i{width:6px;height:6px;border-radius:99px;background:var(--green);display:inline-block}
+.cbody{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;min-height:230px}
+.lchip{align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(240,247,255,.9);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:700;color:#4E6885}
+.lchip .fl{color:#C43D1F;display:inline-flex}
+.lchip .fl svg{width:12px;height:12px}
+.msg{max-width:88%;padding:10px 13px;border-radius:13px;font-size:12.5px;line-height:1.5}
+.msg.ai{align-self:flex-start;background:var(--sky);border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--green-soft);border-bottom-right-radius:4px}
+.note{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:700;color:var(--green)}
+.note svg{flex:none;width:15px;height:15px}
+.bignum{text-align:center;padding:6px 0 2px}
+.bignum b{font-family:"Manrope","Inter",sans-serif;font-size:44px;font-weight:800;letter-spacing:-2px;color:#C43D1F;line-height:1}
+.bignum span{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:5px}
+.statline{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.pillx{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 11px;font-size:11px;font-weight:700;background:var(--sky);color:var(--deep);border:1px solid #CFE4FB}
+.pillx.hot{background:#FDEAE3;color:#C43D1F;border-color:#F6C7B5}
+.pillx.grn{background:var(--green-soft);color:var(--green);border-color:#BFE8D4}
+.chips{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.chip2{display:inline-flex;align-items:center;gap:8px;background:var(--sky);border:1px solid #CFE4FB;border-radius:12px;padding:9px 13px;font-size:12.5px;font-weight:600}
+.chip2 .no{flex:none;width:18px;height:18px;border-radius:99px;background:#fff;color:var(--deep);font:800 10.5px "Manrope","Inter",sans-serif;display:inline-flex;align-items:center;justify-content:center}
+.srow{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:7px 2px;border-bottom:1px dashed var(--line)}
+.srow:last-of-type{border-bottom:none}
+.srow span{color:var(--muted);font-weight:600}
+.srow b{font-family:"Manrope","Inter",sans-serif;letter-spacing:-.3px}
+.srow b .neg{color:#C43D1F}
+.script1{background:var(--sky);border-radius:13px;border-bottom-left-radius:4px;padding:10px 13px;font-size:12.5px}
+.sp{flex:1}
+footer{margin-top:34px;text-align:center;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<h1>Bələdçi kartı — sadə variantlar</h1>
+<p class="lead">Eyni məzmun, dəfələrlə az mətn. Bəyəndiyini de — landinqə tətbiq edim (animasiya saxlanılır).</p>
+<div class="grid">
+
+  <!-- V1 -->
+  <div class="slot">
+    <h2>V1 · Tək cümlə</h2>
+    <div class="why">Ən radikal: bir elan çipi + bir ssenari cümləsi + nəticə sətri. Oxumağa 3 saniyə.</div>
+    <div class="card">
+      <div class="chead"><span class="cav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>Bələdçi</b><small><i></i>ssenari hazırdır</small></div></div>
+      <div class="cbody">
+        <span class="lchip"><span class="fl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>3 otaqlı · Nərimanov · <span class="num">132 000 ₼</span></span>
+        <div class="sp"></div>
+        <div class="msg ai">«Mediandan <b class="num">−18%</b> ucuzdur — bu gün zəng edin, sabaha baxış təklif edin.»</div>
+        <div class="sp"></div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Satışı üzərimizə götürürük</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 -->
+  <div class="slot">
+    <h2>V2 · Rəqəm interfeysdir</h2>
+    <div class="why">Böyük −18% mərkəzdə, qalan hər şey bir sətir. Əlimyandı V5 kartlarının dili.</div>
+    <div class="card">
+      <div class="chead"><span class="cav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>Bələdçi</b><small><i></i>fürsəti izah edir</small></div></div>
+      <div class="cbody">
+        <span class="lchip">3 otaqlı · Nərimanov · <span class="num">132 000 ₼</span></span>
+        <div class="bignum"><b class="num">−18%</b><span>rayon medianından ucuz · <b class="num" style="font-size:11.5px;color:var(--ink)">2 150 ₼/m² → 1 764 ₼/m²</b></span></div>
+        <div class="msg ai">«Ciddi alıcım var — sabah 15:00-da baxış?»</div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sənədlər və müqavilə bizdən</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V3 -->
+  <div class="slot">
+    <h2>V3 · 3 qısa çip</h2>
+    <div class="why">Ssenari 3 çipə sıxılır — hər biri 3-5 söz. Struktur qalır, mətn 4 dəfə azalır.</div>
+    <div class="card">
+      <div class="chead"><span class="cav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>Bələdçi</b><small><i></i>zəng ssenarisi</small></div></div>
+      <div class="cbody">
+        <span class="lchip">3 otaqlı · Nərimanov · <span class="num">132 000 ₼</span></span>
+        <div class="statline"><span class="pillx hot num">−18% median</span><span class="pillx num">11 yeni elan bugün</span></div>
+        <div class="sp"></div>
+        <div class="chips">
+          <span class="chip2"><span class="no">1</span>«Ciddi alıcım var»</span>
+          <span class="chip2"><span class="no">2</span>«Qiymətiniz bazara görə cəlbedicidir»</span>
+          <span class="chip2"><span class="no">3</span>«Sabah 15:00 baxış?»</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V4 -->
+  <div class="slot">
+    <h2>V4 · Dialoq</h2>
+    <div class="why">Canlı söhbət hissi: broker soruşur, Bələdçi 2 qısa cavab verir. Ən "chat" variantı.</div>
+    <div class="card">
+      <div class="chead"><span class="cav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>Bələdçi</b><small><i></i>onlayn</small></div></div>
+      <div class="cbody">
+        <div class="msg me">Nərimanovdakı 3-otaqlıya nə deyim?</div>
+        <div class="msg ai">Elan mediandan <b class="num">−18%</b> ucuzdur — satıcı tələsir.</div>
+        <div class="msg ai">Başla: «Ciddi alıcım var — sabah 15:00 baxış?»</div>
+        <div class="sp"></div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Qalanı üzərimizə götürürük</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V5 -->
+  <div class="slot">
+    <h2>V5 · İndiki kart, yarı mətn</h2>
+    <div class="why">Struktur toxunulmaz (stat + ssenari), amma hər blok tək sətirə endirilib.</div>
+    <div class="card">
+      <div class="chead"><span class="cav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><div><b>Bələdçi</b><small><i></i>ssenari hazırlayır</small></div></div>
+      <div class="cbody">
+        <span class="lchip">3 otaqlı · Nərimanov · <span class="num">132 000 ₼</span></span>
+        <div>
+          <div class="srow"><span>Median / bu elan</span><b class="num">2 150 → 1 764 ₼/m² <span class="neg">−18%</span></b></div>
+          <div class="srow"><span>Bugün rayonda</span><b class="num">11 yeni elan</b></div>
+        </div>
+        <div class="script1">«Ciddi alıcım var. Bazara görə cəlbedici qiymətdir — sabah 15:00-da baxış təşkil edim?»</div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Satışı üzərimizə götürürük</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>brokerly.az · Bələdçi kart variantları · 13 avqust 2026</footer>
+</body>
+</html>
