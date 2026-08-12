@@ -257,7 +257,7 @@ h1 .grad{color:var(--blue)}
 @media(max-width:760px){.actas{gap:14px}}
 
 /* ---- product stage ---- */
-.stagewrap{max-width:1000px;margin:24px auto 0;padding:0 22px 96px;perspective:1300px}
+.stagewrap{max-width:1000px;margin:24px auto 0;padding:0 22px 44px;perspective:1300px}
 .stage{position:relative;border-radius:26px;transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.22,.8,.26,1);will-change:transform}
 html.js .stage:not(.play){transform:rotateX(9deg) scale(.955) translateY(26px)}
 .mapcard{position:relative;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:var(--mapbg,#EDF4FC);box-shadow:0 16px 44px -20px rgba(15,42,67,.22)}
@@ -297,16 +297,13 @@ html.js .toast{opacity:0;transform:translateY(-16px) scale(.95)}
 .toast .tt{font-size:11.5px;color:#4E6885;line-height:1.45;text-align:left}
 .toast .tt b{color:var(--ink);display:block;font-size:11.5px}
 .toast .tt u{text-decoration:none;color:var(--blue);font-weight:700}
-.kbar{position:absolute;left:50%;bottom:-30px;transform:translate(-50%,16px);width:min(88%,660px);background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 34px -14px rgba(15,42,67,.2);display:grid;grid-template-columns:repeat(4,1fr);padding:16px 8px}
-html.js .kbar{opacity:0}
-.stage.play .kbar{animation:kbar .85s cubic-bezier(.22,.8,.26,1) forwards 1.75s}
-@keyframes kbar{to{opacity:1;transform:translate(-50%,0)}}
-.kbar>div{text-align:center;padding:0 10px;border-right:1px solid var(--line)}
-.kbar>div:last-child{border-right:none}
-.kbar .v{font-family:"Manrope",sans-serif;font-size:23px;font-weight:800;letter-spacing:-.5px}
-.kbar .hotv{color:#C43D1F}.kbar .bluv{color:var(--blue)}.kbar .grnv{color:var(--green)}
-.kbar .l{font-size:11px;color:#4E6885;font-weight:600;margin-top:2px}
-@media(max-width:760px){.kbar{grid-template-columns:repeat(2,1fr);row-gap:12px;position:static;transform:none;width:100%;margin-top:14px}.kbar>div:nth-child(even){border-right:none}.stage.play .kbar{animation:fadein .6s ease forwards 1.75s}.toast{display:none}.stagewrap{padding-bottom:32px}}
+.mapbub{position:absolute;z-index:5;left:0;top:0;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 10px 26px -9px rgba(15,42,67,.32);padding:9px 13px;pointer-events:none;opacity:0;transform:translateY(7px);transition:opacity .38s ease,transform .38s ease;white-space:nowrap}
+.mapbub::after{content:"";position:absolute;left:26px;bottom:-6px;transform:rotate(45deg);width:10px;height:10px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mapbub.on{opacity:1;transform:none}
+.mapbub b{font-family:"Manrope",sans-serif;font-size:15px;font-weight:800;letter-spacing:-.3px;margin-right:7px;color:var(--ink)}
+.mapbub .bl{font-size:11.5px;color:#4E6885;font-weight:600}
+.mapbub b.hotb{color:#C43D1F}.mapbub b.grnb{color:var(--green)}.mapbub b.blub{color:var(--deep)}
+@media(max-width:760px){.toast{display:none}.stagewrap{padding-bottom:32px}.mapbub b{font-size:13.5px}.mapbub .bl{font-size:10.5px}}
 @media(max-width:560px){.toast{position:static;max-width:none;margin:12px 0 0}.stagewrap{padding-bottom:24px}.mapcard .mapsvg{height:300px}}
 @media(min-width:761px) and (max-width:1024px){h1{max-width:700px}.widgets{grid-template-columns:repeat(2,1fr)}}
 
@@ -560,11 +557,12 @@ html.dark .mbg{fill:#0F2440}
 html.dark .mblocks rect{fill:#1A3452}
 html.dark .river{fill:#153252}
 html.dark .park{fill:#153B2E}
-html.dark .toast,html.dark .kbar{background:rgba(16,32,52,.96);border-color:#2A4A6E}
+html.dark .toast{background:rgba(16,32,52,.96);border-color:#2A4A6E}
+html.dark .mapbub,html.dark .mapbub::after{background:#102034;border-color:#2A4A6E}
+html.dark .mapbub b{color:#EAF3FE}html.dark .mapbub b.hotb{color:#F58B8B}html.dark .mapbub b.grnb{color:#7ED8B0}html.dark .mapbub b.blub{color:#8FC2FF}
 html.dark .toast .tt{color:#9FB8D4}
 html.dark .toast .tt b{color:#E8F1FB}
-html.dark .kbar .l,html.dark .wl,html.dark .chead p,html.dark .jstep p,html.dark .faq .fa{color:#9FB8D4}
-html.dark .kbar>div{border-right-color:#22405F}
+html.dark .mapbub .bl,html.dark .wl,html.dark .chead p,html.dark .jstep p,html.dark .faq .fa{color:#9FB8D4}
 html.dark .slead,html.dark .tportals,html.dark .csrc,html.dark .price-note,html.dark .pd,html.dark .price-old,html.dark .price .unit{color:#8FA9C7}
 html.dark .widget{background:rgba(17,34,55,.8)}
 html.dark .widget.hotw{background:rgba(64,30,24,.42)}
@@ -616,7 +614,7 @@ html.dark .foot .brand,html.dark .foot .brand b{color:#E8F1FB}
 html.dark .faq summary svg{color:#8FA9C7}
 
 @media (prefers-reduced-motion: reduce){
-  .rise,h1 .w,.zone-line,.zone-fill,.chip,.toast,.kbar,.rv{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;filter:none!important;stroke-dashoffset:0!important}
+  .rise,h1 .w,.zone-line,.zone-fill,.chip,.toast,.mapbub,.rv{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;filter:none!important;stroke-dashoffset:0!important}
   .drawdot{display:none}
   .stage{transform:none!important}
 }
@@ -720,6 +718,7 @@ html.dark .faq summary svg{color:#8FA9C7}
           <g class="chip chot"><rect x="522" y="248" width="132" height="62" rx="16" fill="#E05252"/><circle cx="530" cy="254" r="15" fill="#C43D1F" stroke="#fff" stroke-width="2"/><g transform="translate(521,245) scale(.75)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></g><text x="588" y="272" text-anchor="middle" font-size="15" fill="#fff">132 000</text><g transform="translate(578,280) scale(.85)" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8 6-3-6-3v10"/><path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12"/><path d="m6.49 12.85 11.02 6.3"/><path d="M17.51 12.85 6.5 19.15"/></g></g>
         </g>
       </svg>
+      <div class="mapbub" id="mapBub" aria-hidden="true"></div>
     </div>
     <div class="toast">
       <span class="av"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
@@ -728,12 +727,6 @@ html.dark .faq summary svg{color:#8FA9C7}
         <span data-az>Yeni Əlimyandı elan — Nərimanov, 3 otaq, −18%. <u>Elana bax &gt;</u></span>
         <span data-en>New urgent listing — Narimanov, 3 rooms, −18%. <u>View listing &gt;</u></span>
       </span>
-    </div>
-    <div class="kbar">
-      <div><div class="v num"><span class="cnt" data-count="4">4</span></div><div class="l"><span data-az>Ərazidə satılan əmlak</span><span data-en>Listings in this zone</span></div></div>
-      <div><div class="v num hotv"><span class="cnt" data-count="1">1</span></div><div class="l"><span data-az>Əlimyandı fürsəti</span><span data-en>Urgent opportunity</span></div></div>
-      <div><div class="v num grnv"><span class="cnt" data-count="3">3</span></div><div class="l"><span data-az>Sahibindən satış</span><span data-en>Owner-direct sales</span></div></div>
-      <div><div class="v num bluv"><span class="cnt" data-count="2150">2 150</span></div><div class="l"><span data-az>Median AZN/m²</span><span data-en>Median AZN/m²</span></div></div>
     </div>
   </div>
 </div>
@@ -1233,14 +1226,54 @@ html.dark .faq summary svg{color:#8FA9C7}
       requestAnimationFrame(step);
     });
   }
+  /* gəzən fakt balonu — xəritə üzərində */
+  var bub=document.getElementById("mapBub"), mcard=stage.querySelector(".mapcard");
+  var BSTOPS=[
+    {sel:".chip.chot rect", cls:"hotb", b:["−18%","−18%"], t:["zona medianından aşağı","below the zone median"]},
+    {sel:".chip.c2 rect",   cls:"grnb", b:["Sahibindən","Owner-direct"], t:["vasitəçisiz satış","no middleman"]},
+    {sel:".chip.c1 rect",   cls:"",     b:["Bu gün","Today"], t:["yeni aşkarlanıb","just discovered"]},
+    {sel:".zone-fill",      cls:"",     b:["4 elan","4 listings"], t:["çəkilən zonada","in the drawn zone"]},
+    {sel:".zone-fill",      cls:"blub", b:["2 150 ₼/m²","2,150 ₼/m²"], t:["zonanın medianı","the zone median"]}
+  ];
+  var bi=0,bTimer=null,bVis=true,bLast=null;
+  function bubPlace(d){
+    var a=mcard&&mcard.querySelector(d.sel); if(!a||!bub) return;
+    bLast=d;
+    var r=a.getBoundingClientRect(), c=mcard.getBoundingClientRect();
+    bub.innerHTML='<b class="'+d.cls+'"><span data-az>'+d.b[0]+'</span><span data-en>'+d.b[1]+'</span></b><span class="bl"><span data-az>'+d.t[0]+'</span><span data-en>'+d.t[1]+'</span></span>';
+    var bw=bub.offsetWidth||190, bh=bub.offsetHeight||40;
+    var x=Math.min(Math.max(r.left-c.left+r.width/2-34,10), c.width-bw-10);
+    var y=Math.max(r.top-c.top-bh-10, 48);
+    bub.style.left=x+"px"; bub.style.top=y+"px";
+  }
+  function bubMove(){
+    if(!bVis){bTimer=null;return;}
+    var d=BSTOPS[bi%BSTOPS.length]; bi++;
+    bub.classList.remove("on");
+    setTimeout(function(){ if(!bVis)return; bubPlace(d); bub.classList.add("on"); },380);
+    bTimer=setTimeout(bubMove,3200);
+  }
+  function startBub(){
+    if(!bub||bub.dataset.go) return;
+    bub.dataset.go="1";
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){es.forEach(function(e){
+        bVis=e.isIntersecting;
+        if(bVis&&!bTimer&&stage.classList.contains("play")) bTimer=setTimeout(bubMove,600);
+      });},{threshold:.35}).observe(mcard);
+    }
+    if(!bTimer) bTimer=setTimeout(bubMove,2350);
+  }
+  addEventListener("resize",function(){ if(bLast&&bub&&bub.classList.contains("on")) bubPlace(bLast); },{passive:true});
   function play(){
     stage.classList.add("play");
-    if(reduced){stage.querySelectorAll(".cnt").forEach(function(el){el.textContent=fmt(parseFloat(el.getAttribute("data-count")));});return;}
+    if(reduced){stage.querySelectorAll(".cnt").forEach(function(el){el.textContent=fmt(parseFloat(el.getAttribute("data-count")));});bubPlace(BSTOPS[4]);bub&&bub.classList.add("on");return;}
     stage.querySelectorAll(".cnt").forEach(function(el){el.textContent="0";});
     var mo=document.getElementById("zonemotion");
     timers.push(setTimeout(function(){try{mo&&mo.beginElement();}catch(e){}},150));
     timers.push(setTimeout(counters,1900));
     timers.push(setTimeout(function(){stage.dataset.ready="1";},1250));
+    startBub();
   }
   if(reduced){play();}
   else if("IntersectionObserver" in window){
@@ -1438,7 +1471,7 @@ html.dark .faq summary svg{color:#8FA9C7}
   var rowHTML=TABS.map(function(t,i){
     return '<div class="crm-tab" data-i="'+i+'">'+IC[t.k]+'<span><span data-az>'+t.az+'</span><span data-en>'+t.en+'</span></span>'+(t.bdg?'<span class="cbdg num">'+t.bdg+'</span>':'')+'</div>';
   }).join("");
-  rail.innerHTML=rowHTML+rowHTML; /* iki nüsxə — qırılmasız dövr */
+  rail.innerHTML=rowHTML+rowHTML+rowHTML; /* üç nüsxə — aktiv həmişə ORTA nüsxədə, hər tərəfdən tam qonşuluq */
   var allRows=[].slice.call(rail.querySelectorAll(".crm-tab"));
   var N=TABS.length;
   var STOPS=[]; TABS.forEach(function(t,i){ if(t.taz) STOPS.push(i); });
@@ -1446,7 +1479,7 @@ html.dark .faq summary svg{color:#8FA9C7}
       tEl=document.getElementById("crmT"), dEl=document.getElementById("crmD"),
       prog=document.getElementById("crmProg");
   var reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var DWELL=2400, absIdx=STOPS[0], si=0, visible=false, timer=null;
+  var DWELL=2400, absIdx=N+STOPS[0], si=0, visible=false, timer=null;
 
   function centerOf(i){ var r=allRows[i]; return (wrap.clientHeight/2)-(r.offsetTop+r.offsetHeight/2); }
   function setActive(i){ allRows.forEach(function(r,j){ r.classList.toggle("on", j%N===i%N); }); }
@@ -1462,8 +1495,20 @@ html.dark .faq summary svg{color:#8FA9C7}
     rail.style.transition=animate?("transform "+dur+"ms cubic-bezier(.55,0,.15,1)"):"none";
     rail.style.transform="translateY("+centerOf(i)+"px)";
   }
-  function schedule(fn,ms){ timer=setTimeout(function(){ if(visible) fn(); else timer=null; }, ms); }
+  function schedule(fn,ms){ timer=setTimeout(fn, ms); }
+  /* eniş: HƏMİŞƏ icra olunur (görünməz olsa belə) — vəziyyət daim normallaşır */
+  function land(){
+    if(absIdx>=2*N){
+      absIdx-=N;
+      rail.style.transition="none";
+      rail.style.transform="translateY("+centerOf(absIdx)+"px)";
+      rail.getBoundingClientRect();
+    }
+    setActive(absIdx); showText(absIdx);
+    schedule(step,DWELL);
+  }
   function step(){
+    if(!visible){ timer=null; return; } /* pauza yalnız dayanacaq sərhədində — səyahət heç vaxt yarımçıq qalmır */
     var from=absIdx;
     si=(si+1)%STOPS.length;
     var targetMod=STOPS[si];
@@ -1474,18 +1519,7 @@ html.dark .faq summary svg{color:#8FA9C7}
     if(prog){ prog.style.transition="none"; prog.style.width="0"; }
     jumpTo(target,true,dur);
     absIdx=target;
-    schedule(function(){
-      setActive(absIdx); showText(absIdx);
-      /* ikinci nüsxəyə düşdüksə — dayanma zamanı görünməz sıfırlama (piksel-eyni kadr) */
-      if(absIdx>=N){
-        var eq=absIdx%N;
-        rail.style.transition="none";
-        rail.style.transform="translateY("+centerOf(eq)+"px)";
-        rail.getBoundingClientRect();
-        absIdx=eq;
-      }
-      schedule(step,DWELL);
-    }, dur+40);
+    schedule(land, dur+40);
   }
   function start(){
     if(timer) return;
@@ -1506,8 +1540,7 @@ html.dark .faq summary svg{color:#8FA9C7}
     new IntersectionObserver(function(es){
       es.forEach(function(e){
         visible=e.isIntersecting;
-        if(visible&&!timer) start();
-        if(!visible&&timer){ clearTimeout(timer); timer=null; }
+        if(visible&&!timer) start(); /* çıxışda taymerə toxunmuruq — uçuşdakı eniş tamamlanır, step özü dayanır */
       });
     },{threshold:.3}).observe(wrap);
   } else { visible=true; start(); }

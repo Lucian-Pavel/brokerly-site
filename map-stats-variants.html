@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xəritə statistikası — variantlar</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--ink:#0F2A43;--muted:#5B7593;--line:#D8E6F7;--blue:#1E7BE8;--deep:#0E5BC4;--sky:#EAF3FE;--green:#1E9E6A;--red:#E05252}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif;background:#F5FAFF;color:var(--ink);margin:0;padding:40px 30px 90px}
+h1{font-family:Manrope;font-size:22px;margin:0 0 4px}
+.note{font-size:13px;color:var(--muted);margin-bottom:26px}
+h2{font-family:Manrope;font-size:17px;margin:46px 0 4px}
+h2 .rec{background:var(--green);color:#fff;font-size:10px;letter-spacing:.6px;border-radius:99px;padding:3px 9px;vertical-align:3px;margin-left:8px}
+.vsub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.num{font-family:Manrope;font-variant-numeric:tabular-nums}
+.stage{position:relative;max-width:860px;height:430px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#EDF4FC;box-shadow:0 14px 40px -20px rgba(15,42,67,.22)}
+.blocks i{position:absolute;background:#DDE9F8;border-radius:12px;display:block}
+.park{position:absolute;background:#D4EEDF;border-radius:50%}
+.zone{position:absolute;left:19%;top:16%;width:52%;height:62%;border:3px solid var(--blue);border-radius:50%;background:rgba(30,123,232,.09);opacity:0;transform:scale(.85);animation:zin 1s cubic-bezier(.3,1.2,.4,1) forwards .2s}
+@keyframes zin{to{opacity:1;transform:scale(1)}}
+.chip{position:absolute;background:#fff;border:1.5px solid var(--blue);border-radius:14px;padding:8px 14px 7px;text-align:center;box-shadow:0 5px 12px -5px rgba(15,42,67,.25);opacity:0;transform:scale(.4);animation:cpop .5s cubic-bezier(.3,1.5,.4,1) forwards}
+.chip b{font-family:Manrope;font-size:14px;color:var(--deep);display:block;letter-spacing:-.3px}
+.chip svg{width:15px;height:15px;color:var(--blue);margin-top:2px}
+.chip.hot{background:var(--red);border-color:#C94444}
+.chip.hot b,.chip.hot svg{color:#fff}
+.chip.hot::before{content:"";position:absolute;left:-10px;top:-10px;width:24px;height:24px;border-radius:99px;background:#C43D1F url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>') center/13px no-repeat;border:2px solid #fff}
+.c1{left:24%;top:26%;animation-delay:1.2s}
+.c2{left:52%;top:33%;animation-delay:1.38s}
+.c3{left:36%;top:57%;animation-delay:1.56s}
+.c4{left:58%;top:55%;animation-delay:1.8s}
+@keyframes cpop{to{opacity:1;transform:scale(1)}}
+/* leader line + label (V1/V4) */
+.lead{position:absolute;overflow:visible;pointer-events:none}
+.lead path{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1}
+.lead circle{fill:var(--ink)}
+.callout{position:absolute;background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 13px;box-shadow:0 10px 26px -10px rgba(15,42,67,.3);max-width:250px}
+.callout b{font-size:12.5px;display:block;margin-bottom:2px}
+.callout span{font-size:11.5px;color:var(--muted);line-height:1.45;display:block}
+.callout .k{font-size:9.5px;font-weight:800;letter-spacing:.8px;color:var(--blue);display:block;margin-bottom:3px}
+/* V2 side panel */
+.spanel{position:absolute;top:14px;right:14px;bottom:14px;width:230px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:16px 16px;transform:translateX(120%);animation:spin 0.8s cubic-bezier(.2,.9,.25,1) forwards 2.3s;display:flex;flex-direction:column;gap:12px}
+@keyframes spin{to{transform:none}}
+.spanel .pt{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.srow{display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(8px);animation:srin .5s ease forwards}
+.srow:nth-of-type(2){animation-delay:2.7s}.srow:nth-of-type(3){animation-delay:2.85s}.srow:nth-of-type(4){animation-delay:3.0s}.srow:nth-of-type(5){animation-delay:3.15s}
+@keyframes srin{to{opacity:1;transform:none}}
+.srow .sv{font-family:Manrope;font-size:21px;font-weight:800;letter-spacing:-.5px;min-width:44px}
+.srow .sl{font-size:11px;color:var(--muted);font-weight:600;line-height:1.35}
+.sv.k1{color:var(--ink)}.sv.k2{color:#C43D1F}.sv.k3{color:var(--green)}.sv.k4{color:var(--deep)}
+/* V3 zone tooltip */
+.ztip{position:absolute;left:50%;top:9%;transform:translate(-50%,-6px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px -12px rgba(15,42,67,.3);padding:12px 14px;opacity:0;animation:ztin .6s cubic-bezier(.3,1.3,.4,1) forwards 2.4s}
+.ztip::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+@keyframes ztin{to{opacity:1;transform:translate(-50%,0)}}
+.ztip .zgrid{display:grid;grid-template-columns:auto auto;gap:7px 18px}
+.ztip .zc{display:flex;align-items:baseline;gap:7px}
+.ztip .zc b{font-family:Manrope;font-size:16px}
+.ztip .zc span{font-size:10.5px;color:var(--muted);font-weight:600}
+/* V4 spotlight bubbles handled by JS */
+.bub{position:absolute;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 22px -8px rgba(15,42,67,.3);padding:8px 12px;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;pointer-events:none}
+.bub.on{opacity:1;transform:none}
+.bub b{font-family:Manrope;font-size:15px;margin-right:6px}
+.bub span{font-size:11px;color:var(--muted);font-weight:600}
+.bub::after{content:"";position:absolute;left:22px;bottom:-6px;transform:rotate(45deg);width:10px;height:10px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+</style></head><body>
+<h1>Xəritə statistikası — alt paneli əvəz edən 4 variant</h1>
+<div class="note">Hər variantda zona çəkilir, elan çipləri düşür — sonra statistika fərqli üsulla təqdim olunur. Hamısı dövrədədir.</div>
+
+<div id="mount"></div>
+
+<script>
+const ICONS={
+ bina:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>',
+ ev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+ ofis:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><rect x="2" y="7" width="20" height="13" rx="2"/></svg>',
+ torpaq:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8 6-3-6-3v10"/><path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12"/></svg>'
+};
+function stageHTML(extra){
+  return `<div class="stage">
+    <div class="blocks">
+      <i style="left:4%;top:8%;width:12%;height:14%"></i><i style="left:78%;top:10%;width:15%;height:12%"></i>
+      <i style="left:8%;top:66%;width:13%;height:13%"></i><i style="left:70%;top:74%;width:16%;height:12%"></i>
+      <i style="left:40%;top:8%;width:13%;height:11%"></i><i style="left:30%;top:80%;width:12%;height:11%"></i>
+    </div>
+    <span class="park" style="left:2%;top:36%;width:14%;height:22%"></span>
+    <span class="park" style="right:3%;bottom:30%;width:13%;height:20%"></span>
+    <div class="zone"></div>
+    <div class="chip c1"><b class="num">145 000</b>${ICONS.bina}</div>
+    <div class="chip c2"><b class="num">168 000</b>${ICONS.ev}</div>
+    <div class="chip c3"><b class="num">155 000</b>${ICONS.ofis}</div>
+    <div class="chip hot c4"><b class="num">132 000</b>${ICONS.torpaq}</div>
+    ${extra||""}
+  </div>`;
+}
+const mount=document.getElementById("mount");
+function addSection(id,title,sub,extra,rec){
+  const d=document.createElement("div");
+  d.innerHTML=`<h2>${title}${rec?'<span class="rec">TÖVSİYƏ</span>':''}</h2><div class="vsub">${sub}</div>${stageHTML(extra)}`;
+  mount.appendChild(d);
+  return d.querySelector(".stage");
+}
+
+/* ============ V1 — çipdən çıxan izah xətti (rotasiya) ============ */
+(function(){
+  const st=addSection("v1","V1 — Çipdən çıxan izah xətti","Növbə ilə hər çipə nazik xətt çəkilir və yanında qısa izah kartı açılır");
+  st.insertAdjacentHTML("beforeend",'<svg class="lead" style="inset:0;width:100%;height:100%"><path id="v1p" d=""/><circle id="v1c" r="3" cx="-10" cy="-10"/></svg><div class="callout" id="v1call" style="opacity:0"></div>');
+  const DATA=[
+    {sel:".c4",k:"ƏLİMYANDI FÜRSƏTİ",b:"132 000 ₼ · torpaq",t:"Zona medianından −18% — tələsən satıcı. Sistem avtomatik işarələdi.",dx:120,dy:-96},
+    {sel:".c1",k:"YENİ ELAN",b:"145 000 ₼ · mənzil",t:"Bu gün aşkarlanıb — bina.az mənbəyindən, dublikatsız.",dx:-30,dy:-110},
+    {sel:".c2",k:"SAHİBİNDƏN",b:"168 000 ₼ · həyət evi",t:"Vasitəçisiz elan — birbaşa satıcı ilə danışıq imkanı.",dx:130,dy:-20},
+    {sel:".c3",k:"ZONA MEDİANI",b:"2 065 ₼/m²",t:"Çəkdiyiniz ərazinin medianı bu elanlar əsasında hesablanır.",dx:-40,dy:96}
+  ];
+  const path=st.querySelector("#v1p"), dot=st.querySelector("#v1c"), call=st.querySelector("#v1call");
+  let i=0;
+  function show(){
+    const d=DATA[i%DATA.length]; i++;
+    const ch=st.querySelector(d.sel), r=ch.getBoundingClientRect(), sr=st.getBoundingClientRect();
+    const x1=r.left-sr.left+r.width/2, y1=r.top-sr.top+(d.dy>0?r.height:0);
+    const x2=x1+d.dx, y2=y1+d.dy;
+    call.innerHTML=`<span class="k">${d.k}</span><b>${d.b}</b><span>${d.t}</span>`;
+    call.style.left=Math.min(Math.max(x2-20,10), sr.width-260)+"px";
+    call.style.top=(d.dy<0? y2-78 : y2+8)+"px";
+    dot.setAttribute("cx",x1); dot.setAttribute("cy",y1);
+    path.setAttribute("d",`M${x1} ${y1} L${x1} ${(y1+y2)/2} L${x2} ${(y1+y2)/2} L${x2} ${y2}`);
+    path.style.transition="none"; path.style.strokeDasharray="1"; path.style.strokeDashoffset="1"; path.setAttribute("pathLength","1");
+    requestAnimationFrame(()=>{ path.style.transition="stroke-dashoffset .6s ease"; path.style.strokeDashoffset="0"; });
+    call.style.transition="opacity .3s"; call.style.opacity="0";
+    setTimeout(()=>{ call.style.opacity="1"; },500);
+    setTimeout(()=>{ call.style.opacity="0"; path.style.transition="stroke-dashoffset .4s ease"; path.style.strokeDashoffset="1"; },3400);
+    setTimeout(show,4100);
+  }
+  setTimeout(show,2400);
+})();
+
+/* ============ V2 — yan panel ============ */
+addSection("v2","V2 — Zona statistikası yan paneldə","Zona çəkilib çiplər düşəndən sonra sağdan şüşə panel sürüşür — 4 göstərici sıra ilə",
+`<div class="spanel">
+   <div class="pt">ZONA STATİSTİKASI</div>
+   <div class="srow"><span class="sv k1 num">4</span><span class="sl">Ərazidə satılan əmlak</span></div>
+   <div class="srow"><span class="sv k2 num">1</span><span class="sl">Əlimyandı fürsəti</span></div>
+   <div class="srow"><span class="sv k3 num">3</span><span class="sl">Sahibindən satış</span></div>
+   <div class="srow"><span class="sv k4 num">2 065</span><span class="sl">Median AZN/m²</span></div>
+ </div>`,true);
+
+/* ============ V3 — zonaya bağlı tooltip ============ */
+addSection("v3","V3 — Zonaya bərkidilmiş balon","Statistika ox ilə birbaşa çəkilmiş zonaya işarə edən yığcam balonda",
+`<div class="ztip"><div class="zgrid">
+   <span class="zc"><b class="num">4</b><span>satılan əmlak</span></span>
+   <span class="zc"><b class="num" style="color:#C43D1F">1</b><span>Əlimyandı</span></span>
+   <span class="zc"><b class="num" style="color:var(--green)">3</b><span>sahibindən</span></span>
+   <span class="zc"><b class="num" style="color:var(--deep)">2 065</b><span>median ₼/m²</span></span>
+ </div></div>`);
+
+/* ============ V4 — çip üstü gəzən balonlar ============ */
+(function(){
+  const st=addSection("v4","V4 — Gəzən diqqət balonu","Kiçik balon çiplərin üstündə növbə ilə dolaşır — hər dayanacaqda bir fakt");
+  st.insertAdjacentHTML("beforeend",'<div class="bub" id="v4b"></div>');
+  const DATA=[
+    {sel:".c4",h:"−18%",t:"zona medianından aşağı"},
+    {sel:".c2",h:"Sahibindən",t:"vasitəçisiz satış"},
+    {sel:".c1",h:"Bu gün",t:"yeni aşkarlanıb"},
+    {sel:".zone",h:"2 065 ₼/m²",t:"zonanın medianı"}
+  ];
+  const bub=st.querySelector("#v4b");
+  let i=0;
+  function move(){
+    const d=DATA[i%DATA.length]; i++;
+    const el=st.querySelector(d.sel), r=el.getBoundingClientRect(), sr=st.getBoundingClientRect();
+    bub.classList.remove("on");
+    setTimeout(()=>{
+      bub.innerHTML=`<b>${d.h}</b><span>${d.t}</span>`;
+      const x=Math.min(Math.max(r.left-sr.left+r.width/2-40,12), sr.width-190);
+      bub.style.left=x+"px";
+      bub.style.top=(r.top-sr.top-52)+"px";
+      bub.classList.add("on");
+    },380);
+    setTimeout(move,3200);
+  }
+  setTimeout(move,2400);
+})();
+</script>
+</body></html>
