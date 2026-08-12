@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widget fon ikonları — variantlar</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--ink:#0F2A43;--muted:#5B7593;--line:#D8E6F7;--blue:#1E7BE8;--deep:#0E5BC4;--green:#1E9E6A}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif;background:#F5FAFF;color:var(--ink);margin:0;padding:40px 30px 90px}
+h1{font-family:Manrope;font-size:22px;margin:0 0 4px}
+.note{font-size:13px;color:var(--muted);margin-bottom:10px}
+h2{font-family:Manrope;font-size:16.5px;margin:42px 0 4px}
+h2 .rec{background:var(--green);color:#fff;font-size:10px;letter-spacing:.6px;border-radius:99px;padding:3px 9px;vertical-align:3px;margin-left:8px}
+.vsub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.num{font-family:Manrope;font-variant-numeric:tabular-nums}
+.widgets{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1180px}
+.widget{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:rgba(240,247,255,.92);box-shadow:0 10px 30px -18px rgba(15,42,67,.18)}
+.widget.hotw{background:rgba(255,247,243,.95)}
+.widget.grnw{background:rgba(242,251,246,.95)}
+.widget.bluw{background:rgba(238,246,255,.95)}
+.wv{font-family:Manrope;font-size:29px;font-weight:800;letter-spacing:-.8px;line-height:1.1;position:relative;z-index:1}
+.widget.hotw .wv{color:#C43D1F}.widget.grnw .wv{color:var(--green)}.widget.bluw .wv{color:var(--deep)}
+.wl{font-size:12px;color:#4E6885;font-weight:600;margin-top:3px;position:relative;z-index:1}
+.gbg{position:absolute;pointer-events:none;color:var(--blue)}
+.hotw .gbg{color:#E05252}.grnw .gbg{color:var(--green)}.bluw .gbg{color:var(--deep)}
+@media(max-width:900px){.widgets{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<h1>Fon ikonları — 5 variant</h1>
+<div class="note">Kiçik ikonların yerinə — böyük, yarımşəffaf, kənardan kəsilən fon ikonu.</div>
+<div id="mount"></div>
+<script>
+const W=[
+ {v:"1 250+", az:"Yeni elan hər gün", cls:"", ic:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M12 12v6"/><path d="M9 15h6"/>'},
+ {v:"35", az:"Əlimyandı siqnalı gündə", cls:"hotw", ic:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>'},
+ {v:"410", az:"Sahibindən elan gündə", cls:"grnw", ic:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'},
+ {v:"2 150", az:"Median AZN/m² (Bakı)", cls:"bluw", ic:'<path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/>'}
+];
+const VAR=[
+ {t:"V1 — Künc ghost (sağ-alt, 25%)", s:"Böyük ikon sağ-alt küncdə, bir hissəsi kartdan kənarda; sakit və balanslı.", rec:true,
+  css:{size:104,style:"right:-26px;bottom:-24px",op:.25,sw:1.6,rot:0}},
+ {t:"V2 — Meyilli (sağ-yuxarı, 20%)", s:"Yuxarı sağ küncdən meyilli boylanır — bir az daha oynaq xarakter.",
+  css:{size:118,style:"right:-30px;top:-34px",op:.20,sw:1.6,rot:-14}},
+ {t:"V3 — Sağ zolaq (yarısı görünür, 30%)", s:"İkonun sol yarısı görünür, sağ yarısı kənardan çıxır — vatermark hissi.",
+  css:{size:132,style:"right:-66px;top:50%;margin-top:-66px",op:.30,sw:1.5,rot:0}},
+ {t:"V4 — İncə kontur (böyük, 45%)", s:"Çox böyük, nazik cizgili kontur — memarlıq çertyoju kimi, ən zərif.",
+  css:{size:168,style:"right:-48px;bottom:-56px",op:.45,sw:.65,rot:0}},
+ {t:"V5 — Cəsarətli künc (dörddə biri görünür, 35%)", s:"Nəhəng ikonun yalnız dörddə biri kadra girir — ən qabarıq, poster üslubu.",
+  css:{size:210,style:"right:-92px;bottom:-96px",op:.35,sw:1.8,rot:0}}
+];
+const mount=document.getElementById("mount");
+VAR.forEach(V=>{
+  const cards=W.map(w=>`
+    <div class="widget ${w.cls}">
+      <svg class="gbg" width="${V.css.size}" height="${V.css.size}" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="${V.css.sw}" stroke-linecap="round" stroke-linejoin="round"
+        style="${V.css.style};opacity:${V.css.op};transform:rotate(${V.css.rot}deg)">${w.ic}</svg>
+      <div class="wv num">${w.v}</div>
+      <div class="wl">${w.az}</div>
+    </div>`).join("");
+  mount.insertAdjacentHTML("beforeend",
+    `<h2>${V.t}${V.rec?'<span class="rec">TÖVSİYƏ</span>':''}</h2><div class="vsub">${V.s}</div><div class="widgets">${cards}</div>`);
+});
+</script>
+</body></html>

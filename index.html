@@ -73,13 +73,14 @@ html.lang-en [data-az]{display:none!important}
 .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
 
 .widgets{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.widget{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;text-align:left;background:rgba(240,247,255,.82)}
+.widget{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;text-align:left;background:rgba(240,247,255,.82)}
 .widget>div:first-child{min-width:0}
 .widget.hotw{background:rgba(255,247,243,.85)}
 .widget.grnw{background:rgba(242,251,246,.85)}
 .widget.bluw{background:rgba(238,246,255,.85)}
-.wic{flex:none;width:40px;height:40px;color:var(--blue);display:flex;align-items:center;justify-content:center}
-.wic svg{width:34px;height:34px}
+.widget>div:first-child{position:relative;z-index:1}
+.wic{position:absolute;right:-30px;top:-34px;width:118px;height:118px;color:var(--blue);opacity:.2;transform:rotate(-14deg);pointer-events:none}
+.wic svg{width:118px;height:118px}
 .widget.hotw .wic{color:#E05252}
 .widget.grnw .wic{color:var(--green)}
 .widget.bluw .wic{color:var(--deep)}
@@ -509,8 +510,6 @@ html.dark .brow .bic{background:rgba(30,123,232,.16);color:#8FC2FF}
 .crmk{font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--blue);margin-bottom:10px}
 .crmt{font-family:"Manrope","Inter",sans-serif;font-size:23px;font-weight:800;letter-spacing:-.5px;margin-bottom:9px;min-height:30px}
 .crmd{font-size:13.5px;color:var(--muted);line-height:1.65;max-width:400px;min-height:48px}
-.crmprog{margin-top:20px;height:3px;border-radius:99px;background:rgba(216,230,247,.85);overflow:hidden;width:160px}
-.crmprog i{display:block;height:100%;width:0;background:var(--blue);border-radius:99px}
 .crmtext{transition:opacity .24s ease,transform .24s ease}
 .crmtext.hide{opacity:0;transform:translateY(7px)}
 @media(max-width:920px){
@@ -527,8 +526,6 @@ html.dark .crm-tab{color:#9FB8D4}
 html.dark .crm-tab.on{color:#8FC2FF}
 html.dark .crmk{color:#8FC2FF}
 html.dark .crmd{color:#9FB8D4}
-html.dark .crmprog{background:rgba(42,74,110,.6)}
-@media (prefers-reduced-motion: reduce){.crmprog{display:none}}
 
 /* ---- dark theme ---- */
 html.dark{color-scheme:dark}
@@ -1030,7 +1027,6 @@ html.dark .faq summary svg{color:#8FA9C7}
           <div class="crmt" id="crmT"></div>
           <div class="crmd" id="crmD"></div>
         </div>
-        <div class="crmprog"><i id="crmProg"></i></div>
       </div>
     </div>
   </div>
@@ -1414,7 +1410,10 @@ html.dark .faq summary svg{color:#8FA9C7}
     faq:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>'
   };
   var TABS=[
-    {k:"gun", az:"Bugün", en:"Today"},
+    {k:"gun", az:"Bugün", en:"Today",
+     taz:"Gününüz bir baxışda", ten:"Your day at a glance",
+     daz:"Bugünkü zənglər, baxışlar və xatırlatmalar — panelə girən kimi qarşınızda.",
+     den:"Today's calls, viewings and reminders — right there when you open the panel."},
     {k:"map", az:"Xəritə", en:"Map",
      taz:"Xəritə üzərində axtarış", ten:"Search on the map",
      daz:"Rayon seçin və ya zonanı sərbəst çəkin — ərazinin elanları və statistikası dərhal hesablanır.",
@@ -1439,7 +1438,10 @@ html.dark .faq summary svg{color:#8FA9C7}
      taz:"Günün işləri bir siyahıda", ten:"Your day in one list",
      daz:"Zənglər, baxışlar, xatırlatmalar — heç nə unudulmur.",
      den:"Calls, viewings, reminders — nothing gets forgotten."},
-    {k:"bell", az:"Bildirişlər", en:"Alerts"},
+    {k:"bell", az:"Bildirişlər", en:"Alerts",
+     taz:"Ani bildirişlər", ten:"Instant alerts",
+     daz:"Qaydanıza uyğun yeni elan düşən kimi xəbərdar olursunuz.",
+     den:"The moment a listing matches your rule, you know."},
     {k:"doc", az:"Sənəd analizi", en:"Document analysis",
      taz:"Sənədləri süni intellekt oxuyur", ten:"AI reads the paperwork",
      daz:"Müqavilə və çıxarışların analizi — risklər imzadan əvvəl görünür.",
@@ -1464,7 +1466,10 @@ html.dark .faq summary svg{color:#8FA9C7}
      taz:"Fotolardan 360° tur", ten:"360° tours from photos",
      daz:"Fotoları yükləyin — süni intellekt tam virtual tur yığır, müştəriyə linklə göndərin.",
      den:"Upload the photos — AI builds a full virtual tour you share with a link."},
-    {k:"faq", az:"FAQ", en:"FAQ"}
+    {k:"faq", az:"FAQ", en:"FAQ",
+     taz:"Sualınız var?", ten:"Questions?",
+     daz:"Ən çox verilən suallara qısa, aydın cavablar — dəstək komandamız da yanınızdadır.",
+     den:"Clear answers to common questions — and our support team is close by."}
   ];
   var rail=document.getElementById("crmRail");
   if(!rail) return;
@@ -1476,8 +1481,7 @@ html.dark .faq summary svg{color:#8FA9C7}
   var N=TABS.length;
   var STOPS=[]; TABS.forEach(function(t,i){ if(t.taz) STOPS.push(i); });
   var wrap=rail.parentNode, textEl=document.getElementById("crmText"),
-      tEl=document.getElementById("crmT"), dEl=document.getElementById("crmD"),
-      prog=document.getElementById("crmProg");
+      tEl=document.getElementById("crmT"), dEl=document.getElementById("crmD");
   var reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DWELL=2400, absIdx=N+STOPS[0], si=0, visible=false, timer=null;
 
@@ -1488,8 +1492,6 @@ html.dark .faq summary svg{color:#8FA9C7}
     tEl.innerHTML='<span data-az>'+t.taz+'</span><span data-en>'+t.ten+'</span>';
     dEl.innerHTML='<span data-az>'+t.daz+'</span><span data-en>'+t.den+'</span>';
     textEl.classList.remove("hide");
-    if(prog&&!reduced){ prog.style.transition="none"; prog.style.width="0";
-      requestAnimationFrame(function(){ prog.style.transition="width "+(DWELL-250)+"ms linear"; prog.style.width="100%"; }); }
   }
   function jumpTo(i,animate,dur){
     rail.style.transition=animate?("transform "+dur+"ms cubic-bezier(.55,0,.15,1)"):"none";
@@ -1516,7 +1518,6 @@ html.dark .faq summary svg{color:#8FA9C7}
     var dist=target-absIdx;
     var dur=Math.min(360+dist*180, 1200);
     textEl.classList.add("hide");
-    if(prog){ prog.style.transition="none"; prog.style.width="0"; }
     jumpTo(target,true,dur);
     absIdx=target;
     schedule(land, dur+40);
