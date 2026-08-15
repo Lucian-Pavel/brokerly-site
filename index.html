@@ -403,6 +403,15 @@ html.js .rv.in{opacity:1;transform:none}
 
 /* cta band */
 .band{padding:52px 40px;text-align:center}
+/* Əlaqə: telefon + kanal düymələri */
+.cphone{display:inline-block;font-weight:800;font-size:34px;letter-spacing:.5px;color:var(--ink);margin:16px 0 20px;transition:color .15s}
+.cphone:hover{color:var(--deep)}
+.btn.cwa{background:#22B15D}
+.btn.cwa:hover{background:#1B9A4F}
+.btn.ctg{background:#229ED9}
+.btn.ctg:hover{background:#1C8ABF}
+html.dark .cphone{color:#E9F2FD}
+@media(max-width:760px){.cphone{font-size:26px}}
 .band .h2{margin-bottom:8px}
 .band .slead{margin-bottom:30px}
 .band .actas{margin:0}
@@ -1228,11 +1237,12 @@ html.dark .faq summary svg{color:#8FA9C7}
 <section id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="glass band rv">
-      <h2 class="h2"><span data-az>Növbəti <b class="hotword">Əlimyandı</b> elanı qaçırmayın</span><span data-en>Don’t miss the next <b class="hotword">urgent</b> listing</span></h2>
-      <p class="slead"><span data-az>Suallarınız üçün yazın — bir iş günü ərzində cavablandırırıq.</span><span data-en>Questions? Write to us — we reply within one business day.</span></p>
+      <h2 class="h2"><span data-az>Əlaqə</span><span data-en>Contact</span></h2>
+      <p class="slead"><span data-az>Zəng edin və ya yazın — WhatsApp və Telegram-da aktivik.</span><span data-en>Call or message us — we are active on WhatsApp and Telegram.</span></p>
+      <a class="cphone num" href="tel:+994557779889">+994 55 777 98 89</a>
       <div class="actas">
-        <a class="btn" href="https://app.brokerly.az"><span data-az>Pulsuz başla</span><span data-en>Start for free</span></a>
-        <a class="alink" href="mailto:info@brokerly.az">info@brokerly.az</a>
+        <a class="btn cwa" href="https://wa.me/994557779889" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-4.3A8.38 8.38 0 1 1 8.7 20.05z"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0zm0 0a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>WhatsApp</a>
+        <a class="btn ctg" href="https://t.me/+994557779889" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>Telegram</a>
       </div>
     </div>
   </div>
