@@ -30,5 +30,5 @@ At your registrar (e.g. AzInTelecom/whois.az reseller): `A`/`ALIAS` record for `
 - Design tokens are copied 1:1 from CRM v5.97 (`:root` block in `styles.css`). If the CRM palette changes, update that block only.
 - Fonts: **Manrope** (display, from the IG kit) + **Inter** (body). Both fully support Azerbaijani Ə/ə — do not reintroduce Sora on the site, it lacks the ə glyph and causes mixed rendering.
 - Wording: **rieltor** everywhere (never "makler"). A patched CRM copy `brokerly-crm-v5.97-rieltor.html` sits next to this folder — apply the same 8 replacements in your build.py source blocks so the next CRM version ships with it.
-- Plans: Pulsuz 0 / Standart 18.99 / PRO 42.99 AZN/ay — feature split per plan is still marketing copy; align with real plan limits before launch. Terms page §3 lists the same prices; keep them in sync.
+- Plans: Pulsuz 0 / Standart 24 / PRO 49 AZN/ay — feature split per plan is still marketing copy; align with real plan limits before launch. Terms page §3 lists the same prices; keep them in sync.
 - Demo section data (KPIs, listings, map chips, kanban names) is illustrative and labeled as such on the page.

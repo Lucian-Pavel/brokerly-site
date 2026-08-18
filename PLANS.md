@@ -9,8 +9,8 @@
 | Plan | Qiymət | Billing |
 |---|---|---|
 | Pulsuz | 0 AZN/ay | kart tələb olunmur |
-| Standart | 18.99 AZN/ay | aylıq, istənilən vaxt ləğv |
-| PRO | 42.99 AZN/ay | aylıq, istənilən vaxt ləğv |
+| Standart | 24 AZN/ay | aylıq, istənilən vaxt ləğv |
+| PRO | 49 AZN/ay | aylıq, istənilən vaxt ləğv |
 
 Currency: AZN. Monthly only (no annual yet). Cancel = no charge next cycle, access until period end.
 
